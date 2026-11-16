@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LUNIAN — Our Private Universe</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- FUNDO ESPACIAL -->
+
+    <div class="space-background">
+        <div class="stars"></div>
+        <div class="pink-glow"></div>
+    </div>
+
+
+    <!-- ENTRADA VIP -->
+
+    <section class="entrance-screen" id="entranceScreen">
+
+        <div class="entrance-content">
+
+            <span class="entrance-subtitle">A PRIVATE EXPERIENCE</span>
+
+            <h1 class="entrance-title">LUNIAN</h1>
+
+            <p class="entrance-description">
+                Dois lugares. Um universo.
+            </p>
+
+            <!-- INGRESSO ORIGINAL -->
+
+            <div class="ticket-container" id="ticket">
+
+                <img
+                    src="assets/ingresso.jpg"
+                    alt="Ingresso exclusivo LUNIAN"
+                    class="ticket-image"
+                >
+
+            </div>
+
+            <button class="enter-button" id="enterButton">
+                ENTRAR NA SESSÃO
+                <span>↗</span>
+            </button>
+
+            <span class="entrance-footer">
+                YOUR UNIVERSE IS WAITING
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- SALA PRINCIPAL -->
+
+    <main class="room-screen" id="roomScreen">
+
+        <!-- CABEÇALHO -->
+
+        <header class="room-header">
+
+            <div class="brand">
+                <h1>LUNIAN<span>®</span></h1>
+                <p>OUR PRIVATE UNIVERSE</p>
+            </div>
+
+            <div class="room-status">
+                <span class="status-indicator"></span>
+                <span>SESSÃO PRIVADA</span>
+            </div>
+
+            <button class="theme-button" id="themeButton">
+                ☾
+            </button>
+
+        </header>
+
+
+        <!-- CONTEÚDO DA SALA -->
+
+        <section class="room-content">
+
+            <div class="welcome-area">
+
+                <span class="section-eyebrow">WELCOME TO YOUR SPACE</span>
+
+                <h2>Uma sessão só nossa.</h2>
+
+                <p>Escolha um episódio e aproveite o momento.</p>
+
+            </div>
+
+
+            <!-- PARTICIPANTES -->
+
+            <div class="participants">
+
+                <div class="participant">
+
+                    <div class="participant-avatar">
+                        <img
+                            src="assets/gaga.jpg"
+                            alt="Foto de perfil"
+                        >
+                    </div>
+
+                    <div class="participant-info">
+                        <strong>Você</strong>
+                        <span>Na sala</span>
+                    </div>
+
+                </div>
+
+
+                <div class="connection-symbol">✦</div>
+
+
+                <div class="participant">
+
+                    <div class="participant-avatar">
+                        <img
+                            src="assets/tom.jpg"
+                            alt="Foto de perfil do Luquinhas"
+                        >
+                    </div>
+
+                    <div class="participant-info">
+                        <strong>Luquinhas</strong>
+                        <span>Na sala</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EXPERIÊNCIA DE CINEMA -->
+
+            <div class="main-layout">
+
+                <!-- PAINEL INTEGRADO: PLAYER + CHAT -->
+
+                <section class="cinema-console">
+
+
+                    <!-- PLAYER -->
+
+                    <section class="watch-area">
+
+                        <div class="video-container">
+
+                            <!-- PLAYER DE VÍDEOS LOCAIS -->
+
+                            <video
+                                id="videoPlayer"
+                                controls
+                                playsinline
+                                preload="metadata"
+                            >
+                                <!--
+                                    OS VÍDEOS SERÃO CARREGADOS
+                                    PELA LISTA DE EPISÓDIOS.
+                                -->
+                            </video>
+
+                            <div class="video-placeholder" id="videoPlaceholder">
+
+                                <span class="placeholder-icon">✦</span>
+
+                                <h3>Our little cinema</h3>
+
+                                <p>Seu próximo episódio começa aqui.</p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- YOUTUBE — FONTE ALTERNATIVA -->
+
+                        <div class="youtube-controls">
+
+                            <div class="youtube-source-label">
+                                <span class="source-indicator"></span>
+                                <span>YOUTUBE PLAYER</span>
+                            </div>
+
+                            <form id="youtubeForm" class="youtube-form">
+
+                                <input
+                                    type="url"
+                                    id="youtubeInput"
+                                    placeholder="Cole aqui o link do YouTube..."
+                                    autocomplete="off"
+                                >
+
+                                <button type="submit" id="youtubeLoadButton">
+                                    CARREGAR
+                                    <span>↗</span>
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                        <!-- CONTROLES -->
+
+                        <div class="player-controls">
+
+                            <div class="playing-info">
+                                <span>NOW PLAYING</span>
+                                <strong id="episodeTitle">
+                                    Nenhum episódio selecionado
+                                </strong>
+                            </div>
+
+                            <div class="sync-status">
+                                <span class="status-indicator"></span>
+                                SINCRONIZADO
+                            </div>
+
+                            <!-- MODO IMERSIVO -->
+
+                            <button
+                                class="immersive-button"
+                                id="immersiveButton"
+                                type="button"
+                                aria-label="Ativar modo imersivo"
+                                title="Modo imersivo"
+                            >
+                                ⛶
+                            </button>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- CHAT INTEGRADO -->
+
+                    <aside class="chat-area">
+
+                        <div class="chat-header">
+
+                            <div>
+                                <span class="section-eyebrow">PRIVATE CONNECTION</span>
+                                <h3>Nosso chat</h3>
+                            </div>
+
+                            <span class="chat-live">
+                                ● ONLINE
+                            </span>
+
+                        </div>
+
+
+                        <div class="chat-messages" id="chatMessages">
+
+                            <div class="chat-welcome">
+                                <span>✦</span>
+                                <p>Bem-vindos ao LUNIAN.</p>
+                                <small>Este espaço é só de vocês.</small>
+                            </div>
+
+                        </div>
+
+
+                        <form class="chat-input-area" id="chatForm">
+
+                            <input
+                                type="text"
+                                id="chatInput"
+                                placeholder="Escreva uma mensagem..."
+                                autocomplete="off"
+                            >
+
+                            <button type="submit" aria-label="Enviar mensagem">
+                                ↗
+                            </button>
+
+                        </form>
+
+                    </aside>
+
+                </section>
+
+
+                <!-- LISTA DE EPISÓDIOS -->
+
+                <section class="episodes-section">
+
+                    <div class="episodes-heading">
+
+                        <div>
+                            <span class="section-eyebrow">YOUR COLLECTION</span>
+                            <h3>Lista de episódios</h3>
+                        </div>
+
+                        <span class="episode-count">08 EPISÓDIOS</span>
+
+                    </div>
+
+
+                    <div class="episodes-grid" id="episodesGrid">
+
+                        <button class="episode-card" data-episode="1" data-video="videos/episodio-01.mp4">
+                            <span>EPISÓDIO 01</span>
+                            <strong>01</strong>
+                        </button>
+
+                        <button class="episode-card" data-episode="2" data-video="videos/episodio-02.mp4">
+                            <span>EPISÓDIO 02</span>
+                            <strong>02</strong>
+                        </button>
+
+                        <button class="episode-card" data-episode="3" data-video="videos/episodio-03.mp4">
+                            <span>EPISÓDIO 03</span>
+                            <strong>03</strong>
+                        </button>
+
+                        <button class="episode-card" data-episode="4" data-video="videos/episodio-04.mp4">
+                            <span>EPISÓDIO 04</span>
+                            <strong>04</strong>
+                        </button>
+
+                        <button class="episode-card" data-episode="5" data-video="videos/episodio-05.mp4">
+                            <span>EPISÓDIO 05</span>
+                            <strong>05</strong>
+                        </button>
+
+                        <button class="episode-card" data-episode="6" data-video="videos/episodio-06.mp4">
+                            <span>EPISÓDIO 06</span>
+                            <strong>06</strong>
+                        </button>
+
+                        <button class="episode-card" data-episode="7" data-video="videos/episodio-07.mp4">
+                            <span>EPISÓDIO 07</span>
+                            <strong>07</strong>
+                        </button>
+
+                        <button class="episode-card" data-episode="8" data-video="videos/episodio-08.mp4">
+                            <span>EPISÓDIO 08</span>
+                            <strong>08</strong>
+                        </button>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+
+        <!-- RODAPÉ -->
+
+        <footer class="room-footer">
+
+            <span>LUNIAN® — MADE FOR TWO</span>
+
+            <span>IN OUR OWN UNIVERSE ✦</span>
+
+        </footer>
+
+    </main>
+
+
+    <script type="module" src="app.js"></script>
+
+</body>
+</html>

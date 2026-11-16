@@ -1,0 +1,3184 @@
+/* =====================================================
+   LUNIAN — THE ORBITAL LOUNGE
+   RETROFUTURISM / SPACE AGE / PRIVATE CINEMA
+===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Michroma&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* =====================================================
+   01. DESIGN SYSTEM
+===================================================== */
+
+:root {
+    --ink: #172333;
+    --ink-soft: #354558;
+
+    --paper: #e9e8df;
+    --paper-light: #f6f4eb;
+    --paper-dark: #d4d4ca;
+
+    --metal: #b9c2c4;
+    --metal-light: #e0e4df;
+
+    --pink: #ed75b5;
+    --pink-light: #ffb3d8;
+    --pink-dark: #b94e89;
+
+    --violet: #8e83bd;
+    --blue: #7796aa;
+
+    --line: rgba(23, 35, 51, .18);
+    --shadow: 0 22px 60px rgba(34, 43, 53, .12);
+
+    --font-display: 'Michroma', sans-serif;
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    transition: background .5s ease, color .5s ease;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+::selection {
+    background: var(--pink);
+    color: white;
+}
+
+
+/* =====================================================
+   02. ATMOSFERA / ESTAÇÃO ESPACIAL
+===================================================== */
+
+.space-background {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 15% 15%, rgba(255,255,255,.95), transparent 40%),
+        radial-gradient(ellipse at 90% 75%, rgba(237,117,181,.13), transparent 32%),
+        linear-gradient(135deg, #e9e8df 0%, #dfe3df 48%, #e8e1e6 100%);
+}
+
+.stars {
+    position: absolute;
+    inset: 0;
+    opacity: .45;
+    background-image:
+        radial-gradient(circle, #fff 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(119,150,170,.7) 1px, transparent 1.5px);
+    background-size: 83px 83px, 137px 137px;
+    background-position: 0 0, 30px 40px;
+}
+
+.pink-glow {
+    position: absolute;
+    width: 550px;
+    height: 550px;
+    top: -250px;
+    right: -100px;
+    border-radius: 50%;
+    background: rgba(237,117,181,.18);
+    filter: blur(80px);
+    animation: atmosphere 12s ease-in-out infinite alternate;
+}
+
+.space-background::before {
+    content: "";
+    position: absolute;
+    width: 620px;
+    height: 620px;
+    border: 1px solid rgba(119,150,170,.18);
+    border-radius: 50%;
+    right: -280px;
+    top: 25%;
+    box-shadow:
+        0 0 0 35px rgba(119,150,170,.035),
+        0 0 0 75px rgba(119,150,170,.025);
+}
+
+.space-background::after {
+    content: "";
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    border: 1px solid rgba(237,117,181,.2);
+    border-radius: 50%;
+    left: -130px;
+    bottom: 5%;
+    box-shadow: 0 0 0 22px rgba(237,117,181,.04);
+}
+
+@keyframes atmosphere {
+    from {
+        transform: translate(0, 0) scale(1);
+    }
+    to {
+        transform: translate(-45px, 35px) scale(1.15);
+    }
+}
+
+
+/* =====================================================
+   03. TELA DE ENTRADA
+===================================================== */
+
+.entrance-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 22px;
+    position: relative;
+    overflow: hidden;
+}
+
+.entrance-screen::before {
+    content: "";
+    position: absolute;
+    width: 560px;
+    height: 560px;
+    border: 1px solid rgba(23,35,51,.16);
+    border-radius: 50%;
+    transform: rotate(-25deg) scaleY(.35);
+    box-shadow:
+        0 0 0 18px rgba(23,35,51,.025),
+        0 0 0 55px rgba(23,35,51,.025),
+        0 0 0 90px rgba(23,35,51,.018);
+    pointer-events: none;
+}
+
+.entrance-screen::after {
+    content: "LUNIAN SPACE STATION  •  ORBIT 001";
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: rgba(23,35,51,.48);
+    white-space: nowrap;
+}
+
+.entrance-content {
+    width: min(100%, 560px);
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 65px 45px 48px;
+    border: 1px solid rgba(255,255,255,.85);
+    border-radius: 48% 48% 24px 24px;
+    background:
+        linear-gradient(145deg, rgba(255,255,255,.78), rgba(222,225,220,.64));
+    box-shadow:
+        0 25px 80px rgba(38,48,58,.12),
+        inset 0 2px 3px white;
+    backdrop-filter: blur(16px);
+}
+
+.entrance-content::before {
+    content: "";
+    position: absolute;
+    width: 85px;
+    height: 85px;
+    top: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid rgba(237,117,181,.5);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 8px rgba(237,117,181,.08),
+        inset 0 0 20px rgba(237,117,181,.13);
+}
+
+.entrance-subtitle {
+    display: block;
+    position: relative;
+    margin-bottom: 18px;
+    color: var(--pink-dark);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 4px;
+}
+
+.entrance-title {
+    font-family: var(--font-display);
+    font-size: clamp(38px, 8vw, 64px);
+    font-weight: 400;
+    letter-spacing: 9px;
+    line-height: 1.4;
+    color: var(--ink);
+    text-shadow: 2px 3px 0 rgba(237,117,181,.2);
+}
+
+.entrance-description {
+    margin-top: 8px;
+    color: var(--ink-soft);
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.ticket-container {
+    width: min(100%, 310px);
+    margin: 38px auto 32px;
+    position: relative;
+    transform: rotate(-2deg);
+    transition: transform .4s ease;
+}
+
+.ticket-container:hover {
+    transform: rotate(0deg) translateY(-5px);
+}
+
+/* O ingresso original permanece sem filtros ou alterações. */
+.ticket-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.enter-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    width: 100%;
+    padding: 17px 22px;
+    border: 1px solid var(--ink);
+    border-radius: 3px;
+    background: var(--ink);
+    color: white;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    transition: .3s ease;
+}
+
+.enter-button span {
+    font-size: 18px;
+    color: var(--pink-light);
+}
+
+.enter-button:hover {
+    background: var(--pink-dark);
+    border-color: var(--pink-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(185,78,137,.22);
+}
+
+.entrance-footer {
+    display: block;
+    margin-top: 25px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: rgba(23,35,51,.5);
+}
+
+
+/* =====================================================
+   04. SALA PRINCIPAL
+===================================================== */
+
+.room-screen {
+    display: none;
+    width: min(1500px, 100%);
+    margin: 0 auto;
+    padding: 25px 45px 35px;
+    animation: roomArrival .8s ease both;
+}
+
+@keyframes roomArrival {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =====================================================
+   05. CABEÇALHO / SINALIZAÇÃO
+===================================================== */
+
+.room-header {
+    min-height: 95px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0 5px 22px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+}
+
+.room-header::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 95px;
+    height: 3px;
+    background: var(--pink);
+}
+
+.brand h1 {
+    font-family: var(--font-display);
+    font-size: 23px;
+    font-weight: 400;
+    letter-spacing: 4px;
+}
+
+.brand h1 span {
+    color: var(--pink-dark);
+    font-size: 10px;
+    vertical-align: top;
+}
+
+.brand p {
+    margin-top: 5px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--ink-soft);
+}
+
+.room-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 17px;
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.status-indicator {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #72a88b;
+    box-shadow: 0 0 10px rgba(114,168,139,.7);
+}
+
+.theme-button {
+    width: 43px;
+    height: 43px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: rgba(255,255,255,.45);
+    color: var(--ink);
+    font-size: 19px;
+    transition: .3s ease;
+}
+
+.theme-button:hover {
+    background: var(--pink);
+    border-color: var(--pink);
+    color: white;
+    transform: rotate(25deg);
+}
+
+
+/* =====================================================
+   06. BOAS-VINDAS
+===================================================== */
+
+.room-content {
+    padding-top: 35px;
+}
+
+.welcome-area {
+    position: relative;
+    padding: 28px 35px 30px;
+    margin-bottom: 25px;
+    overflow: hidden;
+    border-radius: 5px;
+    background:
+        linear-gradient(105deg, rgba(255,255,255,.72), rgba(223,226,220,.45));
+    border: 1px solid rgba(255,255,255,.8);
+    box-shadow: inset 0 1px 0 white;
+}
+
+.welcome-area::after {
+    content: "✦";
+    position: absolute;
+    right: 55px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 95px;
+    color: rgba(237,117,181,.32);
+    text-shadow: 0 0 30px rgba(237,117,181,.2);
+}
+
+.section-eyebrow {
+    display: block;
+    color: var(--pink-dark);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 2.5px;
+}
+
+.welcome-area h2 {
+    margin-top: 10px;
+    font-family: var(--font-heading);
+    font-size: clamp(25px, 4vw, 37px);
+    font-weight: 500;
+    letter-spacing: -1.5px;
+}
+
+.welcome-area p {
+    margin-top: 7px;
+    color: var(--ink-soft);
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   07. PARTICIPANTES
+===================================================== */
+
+.participants {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    padding: 17px 20px;
+    margin-bottom: 30px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.participant {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.participant-avatar {
+    display: grid;
+    place-items: center;
+    width: 37px;
+    height: 37px;
+    border: 1px solid rgba(237,117,181,.65);
+    border-radius: 50%;
+    background: linear-gradient(145deg, #fff, #f2c4db);
+    color: var(--ink);
+    font-family: var(--font-heading);
+    font-size: 14px;
+}
+
+.participant-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.participant-info strong {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.participant-info span {
+    color: #72977f;
+    font-family: var(--font-mono);
+    font-size: 9px;
+}
+
+.connection-symbol {
+    color: var(--pink-dark);
+    font-size: 20px;
+}
+
+
+/* =====================================================
+   08. ÁREA PRINCIPAL / CINEMA
+===================================================== */
+
+.main-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(300px, .85fr);
+    align-items: start;
+    gap: 25px;
+}
+
+.watch-area {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+
+/* =====================================================
+   09. PLAYER / JANELA CINEMATOGRÁFICA
+===================================================== */
+
+.video-container {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    min-height: 250px;
+    position: relative;
+    overflow: hidden;
+    border: 8px solid #c1c7c5;
+    border-radius: 12px;
+    background:
+        radial-gradient(ellipse at center, #35485c 0%, #172333 75%);
+    box-shadow:
+        0 15px 35px rgba(23,35,51,.2),
+        inset 0 0 0 1px rgba(255,255,255,.5);
+}
+
+.video-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    border: 1px solid rgba(255,255,255,.25);
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+    background: #101722;
+}
+
+.video-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    background:
+        radial-gradient(circle at center, rgba(237,117,181,.22), transparent 30%),
+        linear-gradient(135deg, #26384b, #121e2d);
+}
+
+.placeholder-icon {
+    display: grid;
+    place-items: center;
+    width: 65px;
+    height: 65px;
+    margin-bottom: 17px;
+    border: 1px solid rgba(255,179,216,.7);
+    border-radius: 50%;
+    color: var(--pink-light);
+    font-size: 25px;
+    box-shadow: 0 0 35px rgba(237,117,181,.2);
+    animation: orbitPulse 3s ease-in-out infinite;
+}
+
+@keyframes orbitPulse {
+    50% {
+        box-shadow: 0 0 45px rgba(237,117,181,.5);
+        transform: scale(1.05);
+    }
+}
+
+.video-placeholder h3 {
+    font-family: var(--font-display);
+    font-size: clamp(15px, 2vw, 21px);
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.video-placeholder p {
+    margin-top: 10px;
+    color: rgba(255,255,255,.65);
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   10. INFORMAÇÕES DO PLAYER
+===================================================== */
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 17px 5px 20px;
+    border-bottom: 1px solid var(--line);
+}
+
+.playing-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.playing-info span {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--pink-dark);
+}
+
+.playing-info strong {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.sync-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   11. EPISÓDIOS / CATÁLOGO ORBITAL
+===================================================== */
+
+.episodes-section {
+    margin-top: 28px;
+}
+
+.episodes-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 17px;
+}
+
+.episodes-heading h3 {
+    margin-top: 7px;
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.episode-count {
+    padding: 7px 11px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.episodes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.episode-card {
+    min-height: 85px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: rgba(255,255,255,.35);
+    color: var(--ink);
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    transition: .25s ease;
+}
+
+.episode-card::after {
+    content: "";
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    right: -12px;
+    bottom: -12px;
+    border: 1px solid rgba(237,117,181,.35);
+    border-radius: 50%;
+}
+
+.episode-card span {
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 1px;
+    color: var(--ink-soft);
+}
+
+.episode-card strong {
+    font-family: var(--font-heading);
+    font-size: 27px;
+    font-weight: 500;
+}
+
+.episode-card:hover {
+    border-color: var(--pink);
+    background: rgba(255,255,255,.8);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(23,35,51,.08);
+}
+
+.episode-card.active {
+    border-color: var(--pink-dark);
+    background: var(--ink);
+    color: white;
+    box-shadow: inset 0 -3px var(--pink);
+}
+
+.episode-card.active span {
+    color: var(--pink-light);
+}
+
+
+/* =====================================================
+   12. CHAT / CENTRAL DE COMUNICAÇÃO
+===================================================== */
+
+.chat-area {
+    min-width: 0;
+    height: 100%;
+    min-height: 540px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.8);
+    border-radius: 8px;
+    background: rgba(247,246,239,.74);
+    box-shadow: var(--shadow);
+}
+
+.chat-area::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--pink), var(--violet), var(--blue));
+}
+
+.chat-header {
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 20px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(255,255,255,.3);
+}
+
+.chat-header h3 {
+    margin-top: 6px;
+    font-family: var(--font-heading);
+    font-size: 23px;
+    font-weight: 600;
+}
+
+.chat-live {
+    padding: 7px 10px;
+    border: 1px solid rgba(114,168,139,.4);
+    border-radius: 20px;
+    color: #58866a;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.chat-messages {
+    flex: 1;
+    min-height: 300px;
+    max-height: 470px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    padding: 20px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--pink) transparent;
+}
+
+.chat-welcome {
+    margin: auto;
+    padding: 20px 10px;
+    text-align: center;
+    color: var(--ink-soft);
+}
+
+.chat-welcome span {
+    display: block;
+    margin-bottom: 12px;
+    color: var(--pink-dark);
+    font-size: 25px;
+}
+
+.chat-welcome p {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.chat-welcome small {
+    display: block;
+    margin-top: 7px;
+    font-size: 11px;
+    color: #7d8790;
+}
+
+.message {
+    width: fit-content;
+    max-width: 85%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 4px 13px 13px 13px;
+    background: rgba(255,255,255,.8);
+    animation: messageArrival .25s ease both;
+}
+
+@keyframes messageArrival {
+    from {
+        opacity: 0;
+        transform: translateY(7px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message.own-message {
+    align-self: flex-end;
+    border-color: rgba(237,117,181,.35);
+    border-radius: 13px 4px 13px 13px;
+    background: #f8e5ef;
+}
+
+.message.other-message {
+    align-self: flex-start;
+}
+
+.message-sender {
+    color: var(--pink-dark);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: .5px;
+}
+
+.message-text {
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.message-time {
+    align-self: flex-end;
+    color: #89929a;
+    font-family: var(--font-mono);
+    font-size: 9px;
+}
+
+.chat-input-area {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 15px;
+    border-top: 1px solid var(--line);
+    background: rgba(255,255,255,.45);
+}
+
+.chat-input-area input {
+    width: 100%;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    outline: none;
+    background: rgba(255,255,255,.8);
+    color: var(--ink);
+    font-size: 14px;
+    transition: .2s ease;
+}
+
+.chat-input-area input:focus {
+    border-color: var(--pink-dark);
+    box-shadow: 0 0 0 3px rgba(237,117,181,.12);
+}
+
+.chat-input-area input::placeholder {
+    color: #89929a;
+}
+
+.chat-input-area button {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    border: 0;
+    border-radius: 3px;
+    background: var(--ink);
+    color: var(--pink-light);
+    font-size: 22px;
+    transition: .25s ease;
+}
+
+.chat-input-area button:hover {
+    background: var(--pink-dark);
+    color: white;
+}
+
+
+/* =====================================================
+   13. RODAPÉ
+===================================================== */
+
+.room-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 25px 5px 5px;
+    margin-top: 35px;
+    border-top: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+}
+
+
+/* =====================================================
+   14. MODO NOTURNO
+===================================================== */
+
+body.night-mode {
+    --ink: #edf0f2;
+    --ink-soft: #a9b3c0;
+
+    --paper: #111a28;
+    --paper-light: #1b2838;
+    --paper-dark: #273446;
+
+    --line: rgba(226,232,240,.14);
+    --shadow: 0 22px 60px rgba(0,0,0,.25);
+
+    background: #111a28;
+    color: var(--ink);
+}
+
+body.night-mode .space-background {
+    background:
+        radial-gradient(ellipse at 80% 10%, rgba(237,117,181,.13), transparent 35%),
+        radial-gradient(ellipse at 10% 80%, rgba(119,150,170,.12), transparent 35%),
+        linear-gradient(145deg, #101a29, #1a2637 60%, #211c32);
+}
+
+body.night-mode .stars {
+    opacity: .8;
+}
+
+body.night-mode .pink-glow {
+    opacity: .7;
+}
+
+body.night-mode .entrance-content {
+    background: linear-gradient(145deg, rgba(38,51,69,.92), rgba(24,34,49,.94));
+    border-color: rgba(255,255,255,.12);
+}
+
+body.night-mode .entrance-title,
+body.night-mode .entrance-description,
+body.night-mode .entrance-footer {
+    color: var(--ink);
+}
+
+body.night-mode .entrance-screen::after {
+    color: rgba(255,255,255,.45);
+}
+
+body.night-mode .entrance-screen::before {
+    border-color: rgba(255,255,255,.12);
+}
+
+body.night-mode .welcome-area {
+    background: linear-gradient(110deg, rgba(39,54,73,.9), rgba(28,40,57,.7));
+    border-color: rgba(255,255,255,.1);
+}
+
+body.night-mode .participant-avatar {
+    background: linear-gradient(145deg, #f6d9e8, #b97b9e);
+}
+
+body.night-mode .theme-button {
+    background: rgba(255,255,255,.08);
+    color: var(--pink-light);
+}
+
+body.night-mode .video-container {
+    border-color: #455366;
+}
+
+body.night-mode .episode-card {
+    background: rgba(255,255,255,.045);
+    color: var(--ink);
+}
+
+body.night-mode .episode-card:hover {
+    background: rgba(255,255,255,.11);
+}
+
+body.night-mode .episode-card.active {
+    background: #35445a;
+    border-color: var(--pink);
+}
+
+body.night-mode .chat-area {
+    background: rgba(30,43,60,.95);
+    border-color: rgba(255,255,255,.1);
+}
+
+body.night-mode .chat-header,
+body.night-mode .chat-input-area {
+    background: rgba(255,255,255,.035);
+}
+
+body.night-mode .message {
+    background: #2b3b50;
+    border-color: rgba(255,255,255,.1);
+}
+
+body.night-mode .message.own-message {
+    background: #51344c;
+    border-color: rgba(237,117,181,.3);
+}
+
+body.night-mode .message-text {
+    color: #f1edf2;
+}
+
+body.night-mode .chat-input-area input {
+    background: #172333;
+    color: white;
+    border-color: rgba(255,255,255,.15);
+}
+
+body.night-mode .chat-input-area input::placeholder {
+    color: #9aa7b5;
+}
+
+body.night-mode .enter-button {
+    background: var(--pink-dark);
+    border-color: var(--pink-dark);
+}
+
+body.night-mode .enter-button:hover {
+    background: var(--pink);
+    border-color: var(--pink);
+}
+
+
+/* =====================================================
+   15. RESPONSIVIDADE — TABLETS
+===================================================== */
+
+@media (max-width: 1050px) {
+    .room-screen {
+        padding: 22px 25px 30px;
+    }
+
+    .main-layout {
+        grid-template-columns: minmax(0, 1.25fr) minmax(280px, .85fr);
+        gap: 17px;
+    }
+
+    .episodes-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .chat-header {
+        padding: 17px;
+    }
+
+    .chat-messages {
+        padding: 15px;
+    }
+}
+
+
+/* =====================================================
+   16. RESPONSIVIDADE — CELULARES
+===================================================== */
+
+@media (max-width: 800px) {
+    .room-screen {
+        padding: 16px 15px 25px;
+    }
+
+    .room-header {
+        min-height: 75px;
+    }
+
+    .brand h1 {
+        font-size: 19px;
+    }
+
+    .room-status {
+        padding: 8px 10px;
+        font-size: 8px;
+    }
+
+    .room-content {
+        padding-top: 22px;
+    }
+
+    .welcome-area {
+        padding: 23px 20px;
+    }
+
+    .welcome-area::after {
+        right: 15px;
+        font-size: 65px;
+    }
+
+    .participants {
+        gap: 15px;
+        padding: 14px 5px;
+    }
+
+    .main-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+    }
+
+    .watch-area {
+        display: contents;
+    }
+
+    .video-container {
+        grid-row: 1;
+        min-height: 0;
+        border-width: 5px;
+    }
+
+    .player-controls {
+        grid-row: 2;
+    }
+
+    .chat-area {
+        grid-row: 3;
+        min-height: 450px;
+        margin-top: 22px;
+    }
+
+    .episodes-section {
+        grid-row: 4;
+        margin-top: 28px;
+    }
+
+    .chat-messages {
+        min-height: 290px;
+        max-height: 420px;
+    }
+
+    .message-text {
+        font-size: 15px;
+    }
+
+    .chat-input-area input {
+        font-size: 16px;
+    }
+
+    .chat-input-area button {
+        width: 48px;
+        height: 48px;
+    }
+
+    .room-footer {
+        font-size: 8px;
+    }
+}
+
+
+/* =====================================================
+   17. RESPONSIVIDADE — TELAS PEQUENAS
+===================================================== */
+
+@media (max-width: 480px) {
+    .entrance-content {
+        padding: 65px 22px 35px;
+        border-radius: 46% 46% 20px 20px;
+    }
+
+    .entrance-title {
+        font-size: 38px;
+        letter-spacing: 5px;
+    }
+
+    .entrance-subtitle {
+        font-size: 8px;
+        letter-spacing: 2px;
+    }
+
+    .ticket-container {
+        width: min(100%, 270px);
+        margin: 30px auto 25px;
+    }
+
+    .entrance-screen::after {
+        font-size: 7px;
+        letter-spacing: 1.5px;
+    }
+
+    .room-screen {
+        padding: 12px 11px 20px;
+    }
+
+    .room-header {
+        gap: 8px;
+        padding-bottom: 16px;
+    }
+
+    .brand h1 {
+        font-size: 16px;
+        letter-spacing: 2px;
+    }
+
+    .brand p {
+        font-size: 7px;
+        letter-spacing: 1px;
+    }
+
+    .room-status {
+        gap: 6px;
+        font-size: 7px;
+        letter-spacing: 0;
+    }
+
+    .theme-button {
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+    }
+
+    .welcome-area {
+        padding: 20px 16px;
+    }
+
+    .welcome-area h2 {
+        max-width: 75%;
+        font-size: 25px;
+    }
+
+    .welcome-area p {
+        max-width: 85%;
+        font-size: 12px;
+    }
+
+    .participant-avatar {
+        width: 33px;
+        height: 33px;
+    }
+
+    .participant-info strong {
+        font-size: 11px;
+    }
+
+    .participant-info span {
+        font-size: 8px;
+    }
+
+    .connection-symbol {
+        font-size: 16px;
+    }
+
+    .video-container {
+        border-width: 4px;
+        border-radius: 7px;
+    }
+
+    .player-controls {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+        padding: 14px 3px;
+    }
+
+    .episodes-heading h3 {
+        font-size: 19px;
+    }
+
+    .episode-count {
+        font-size: 8px;
+        padding: 6px 8px;
+    }
+
+    .episode-card {
+        min-height: 75px;
+        padding: 10px;
+    }
+
+    .episode-card strong {
+        font-size: 23px;
+    }
+
+    .chat-header {
+        min-height: 80px;
+        padding: 15px;
+    }
+
+    .chat-header h3 {
+        font-size: 21px;
+    }
+
+    .chat-live {
+        font-size: 8px;
+        padding: 6px 8px;
+    }
+
+    .chat-messages {
+        padding: 13px;
+    }
+
+    .message {
+        max-width: 92%;
+    }
+
+    .message-text {
+        font-size: 14px;
+    }
+
+    .chat-input-area {
+        padding: 10px;
+    }
+
+    .chat-input-area input {
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .room-footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 9px;
+    }
+}
+
+
+/* =====================================================
+   18. ACESSIBILIDADE / MOVIMENTO
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}/* =========================================
+   LUNIAN — SOFT SHOOTING STARS
+========================================= */
+
+.stars {
+    animation: none;
+    overflow: hidden;
+}
+
+/* Primeira estrela cadente */
+.stars::before {
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: 65%;
+
+    width: 100px;
+    height: 1px;
+
+    opacity: 0;
+    border-radius: 50%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.15) 35%,
+        rgba(255,255,255,.85)
+    );
+
+    box-shadow: 0 0 5px rgba(255,255,255,.25);
+
+    transform: rotate(135deg);
+    animation: meteorOne 14s ease-in-out infinite;
+}
+
+/* Segunda estrela cadente */
+.stars::after {
+    content: "";
+    position: absolute;
+    top: -15%;
+    left: 25%;
+
+    width: 75px;
+    height: 1px;
+
+    opacity: 0;
+    border-radius: 50%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,179,216,.15) 35%,
+        rgba(255,179,216,.8)
+    );
+
+    box-shadow: 0 0 5px rgba(237,117,181,.2);
+
+    transform: rotate(135deg);
+    animation: meteorTwo 21s ease-in-out infinite;
+    animation-delay: 6s;
+}
+
+/* Movimento da primeira estrela */
+@keyframes meteorOne {
+    0%, 12% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(135deg);
+    }
+
+    15% {
+        opacity: .65;
+    }
+
+    24% {
+        opacity: 0;
+        transform: translate(-180px, 180px) rotate(135deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-180px, 180px) rotate(135deg);
+    }
+}
+
+/* Movimento da segunda estrela */
+@keyframes meteorTwo {
+    0%, 15% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(135deg);
+    }
+
+    19% {
+        opacity: .5;
+    }
+
+    27% {
+        opacity: 0;
+        transform: translate(-140px, 140px) rotate(135deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-140px, 140px) rotate(135deg);
+    }
+}
+
+/* Acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    .stars::before,
+    .stars::after {
+        animation: none !important;
+    }
+}/* =====================================================
+   LUNIAN — ORBITAL ARRIVAL
+   NOVA IDENTIDADE DA TELA DE ENTRADA
+===================================================== */
+
+.entrance-screen {
+    min-height: 100vh;
+    padding: 65px 24px 85px;
+    isolation: isolate;
+}
+
+/* Grande arquitetura orbital */
+
+.entrance-screen::before {
+    content: "";
+    position: absolute;
+    width: min(850px, 95vw);
+    height: min(850px, 95vw);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scaleY(.76);
+    border: 1px solid rgba(119,150,170,.25);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 18px rgba(255,255,255,.12),
+        0 0 0 19px rgba(119,150,170,.12),
+        0 0 0 65px rgba(255,255,255,.07),
+        0 0 0 66px rgba(119,150,170,.1);
+    pointer-events: none;
+    animation: orbitalArchitecture 35s linear infinite;
+}
+
+/* Identificação da estação */
+
+.entrance-screen::after {
+    content: "LUNIAN SPACE STATION     /     ORBITAL ACCESS 001";
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: rgba(23,35,51,.55);
+    white-space: nowrap;
+}
+
+/* Conteúdo principal */
+
+.entrance-content {
+    width: min(100%, 680px);
+    padding: 55px 55px 45px;
+    border-radius: 5px;
+    border: 1px solid rgba(255,255,255,.85);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(250,250,245,.86),
+            rgba(225,228,222,.72)
+        );
+
+    box-shadow:
+        0 30px 100px rgba(35,48,62,.13),
+        inset 0 1px 0 white;
+
+    backdrop-filter: blur(18px);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Linhas arquitetônicas */
+
+.entrance-content::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    top: -95px;
+    right: -70px;
+
+    border: 1px solid rgba(237,117,181,.5);
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 12px rgba(237,117,181,.055),
+        0 0 0 28px rgba(237,117,181,.04);
+}
+
+/* Identificação superior */
+
+.entrance-subtitle {
+    position: relative;
+    display: inline-block;
+    padding: 8px 14px;
+    margin-bottom: 20px;
+
+    border: 1px solid rgba(185,78,137,.3);
+    background: rgba(237,117,181,.08);
+
+    font-size: 9px;
+    letter-spacing: 3px;
+}
+
+/* Nome principal */
+
+.entrance-title {
+    position: relative;
+    font-size: clamp(48px, 9vw, 76px);
+    letter-spacing: 13px;
+    line-height: 1.35;
+
+    background: linear-gradient(
+        120deg,
+        #172333 20%,
+        #536b7d 55%,
+        #172333 85%
+    );
+
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    text-shadow: none;
+}
+
+.entrance-description {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--ink-soft);
+}
+
+/* Pequena identificação técnica */
+
+.entrance-description::after {
+    content: "EST. 001  /  PRIVATE CINEMA";
+    display: block;
+    margin-top: 13px;
+
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+
+    color: var(--pink-dark);
+}
+
+/* Ingresso */
+
+.ticket-container {
+    width: min(100%, 340px);
+    margin: 42px auto 36px;
+    padding: 10px;
+
+    background: rgba(255,255,255,.55);
+    border: 1px solid rgba(255,255,255,.95);
+
+    box-shadow:
+        0 18px 40px rgba(23,35,51,.12),
+        0 0 0 1px rgba(119,150,170,.12);
+
+    transform: rotate(-1deg);
+    transition: transform .5s ease, box-shadow .5s ease;
+}
+
+.ticket-container::before {
+    content: "ADMIT TWO";
+    display: block;
+    padding: 5px 0 9px;
+
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: var(--pink-dark);
+}
+
+.ticket-container::after {
+    content: "LUNIAN  /  PRIVATE ACCESS";
+    display: block;
+    padding: 9px 0 4px;
+
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: var(--ink-soft);
+}
+
+.ticket-container:hover {
+    transform: rotate(0deg) translateY(-7px);
+    box-shadow:
+        0 25px 50px rgba(23,35,51,.17),
+        0 0 25px rgba(237,117,181,.12);
+}
+
+/* Preserva a imagem original */
+
+.ticket-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 2px;
+}
+
+/* Botão de acesso */
+
+.enter-button {
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 19px 25px;
+
+    background: var(--ink);
+    border: 1px solid rgba(255,255,255,.25);
+
+    box-shadow:
+        0 7px 20px rgba(23,35,51,.15),
+        inset 0 1px 0 rgba(255,255,255,.12);
+
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2.5px;
+}
+
+.enter-button span {
+    transition: transform .3s ease;
+}
+
+.enter-button:hover span {
+    transform: translate(4px, -4px);
+}
+
+/* Rodapé */
+
+.entrance-footer {
+    margin-top: 30px;
+    font-size: 8px;
+    letter-spacing: 4px;
+}
+
+/* Movimento orbital discreto */
+
+@keyframes orbitalArchitecture {
+    from {
+        transform: translate(-50%, -50%) scaleY(.76) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) scaleY(.76) rotate(360deg);
+    }
+}
+
+/* Modo noturno */
+
+body.night-mode .entrance-content {
+    background: linear-gradient(
+        145deg,
+        rgba(37,51,69,.94),
+        rgba(22,33,49,.94)
+    );
+    border-color: rgba(255,255,255,.15);
+}
+
+body.night-mode .entrance-title {
+    background: linear-gradient(
+        120deg,
+        #f5f2ef,
+        #e6a9ce,
+        #f5f2ef
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+body.night-mode .entrance-description {
+    color: #d5dce4;
+}
+
+body.night-mode .entrance-screen::after {
+    color: rgba(255,255,255,.45);
+}
+
+body.night-mode .entrance-screen::before {
+    border-color: rgba(255,179,216,.2);
+}
+
+body.night-mode .ticket-container {
+    background: rgba(255,255,255,.08);
+    border-color: rgba(255,255,255,.15);
+}
+
+/* Celulares */
+
+@media (max-width: 480px) {
+    .entrance-content {
+        padding: 55px 22px 35px;
+    }
+
+    .entrance-title {
+        font-size: 43px;
+        letter-spacing: 7px;
+    }
+
+    .ticket-container {
+        width: min(100%, 280px);
+    }
+
+    .entrance-screen::after {
+        font-size: 7px;
+        letter-spacing: 1px;
+    }
+}
+
+/* Acessibilidade */
+
+@media (prefers-reduced-motion: reduce) {
+    .entrance-screen::before {
+        animation: none;
+    }
+}
+/* ==========================================
+   LUNIAN — CINEMA CONSOLE
+   INTEGRATED WATCH & TALK EXPERIENCE
+========================================== */
+
+/* Estrutura principal */
+
+.main-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+}
+
+/* Painel único de cinema e conversa */
+
+.cinema-console {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(25, 34, 49, 0.94),
+            rgba(15, 23, 36, 0.97)
+        );
+
+    border: 1px solid rgba(190, 204, 219, 0.17);
+    border-radius: 20px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+/* PLAYER */
+
+.cinema-console .watch-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: 0;
+}
+
+.cinema-console .video-container {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+
+    border: none;
+    border-radius: 0;
+    background: #080d16;
+}
+
+.cinema-console .video-container video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+}
+
+/* Informações do episódio */
+
+.cinema-console .player-controls {
+    width: 100%;
+    min-height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 18px 25px;
+
+    background: rgba(255, 255, 255, 0.025);
+    border-bottom: 1px solid rgba(190, 204, 219, 0.12);
+}
+
+.cinema-console .playing-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cinema-console .playing-info > span {
+    font-size: 9px;
+    letter-spacing: 2px;
+    opacity: 0.55;
+}
+
+.cinema-console .playing-info strong {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* CHAT INTEGRADO */
+
+.cinema-console .chat-area {
+    width: 100%;
+    min-width: 0;
+    min-height: 390px;
+
+    display: flex;
+    flex-direction: column;
+
+    margin: 0;
+    padding: 0;
+
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* Cabeçalho do chat */
+
+.cinema-console .chat-header {
+    min-height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 18px 25px;
+
+    background: rgba(255, 255, 255, 0.018);
+    border-bottom: 1px solid rgba(190, 204, 219, 0.10);
+}
+
+.cinema-console .chat-header h3 {
+    margin-top: 5px;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.cinema-console .chat-live {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    opacity: 0.65;
+}
+
+/* Histórico de mensagens */
+
+.cinema-console .chat-messages {
+    flex: 1;
+    min-height: 250px;
+    max-height: 380px;
+
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    padding: 25px;
+    background: transparent;
+}
+
+/* Boas-vindas */
+
+.cinema-console .chat-welcome {
+    margin: auto;
+    text-align: center;
+    opacity: 0.65;
+}
+
+.cinema-console .chat-welcome > span {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 22px;
+    color: var(--pink-light);
+}
+
+.cinema-console .chat-welcome p {
+    font-size: 13px;
+}
+
+.cinema-console .chat-welcome small {
+    display: block;
+    margin-top: 5px;
+    font-size: 11px;
+    opacity: 0.65;
+}
+
+/* Campo de mensagem */
+
+.cinema-console .chat-input-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin: 0;
+    padding: 16px 22px;
+
+    background: rgba(255, 255, 255, 0.025);
+    border-top: 1px solid rgba(190, 204, 219, 0.10);
+}
+
+.cinema-console .chat-input-area input {
+    flex: 1;
+    min-width: 0;
+    height: 46px;
+
+    padding: 0 17px;
+
+    color: var(--paper);
+    background: rgba(255, 255, 255, 0.055);
+
+    border: 1px solid rgba(190, 204, 219, 0.14);
+    border-radius: 9px;
+
+    outline: none;
+    font-family: inherit;
+    font-size: 13px;
+
+    transition: border-color 0.25s, background 0.25s;
+}
+
+.cinema-console .chat-input-area input:focus {
+    border-color: rgba(237, 117, 181, 0.55);
+    background: rgba(255, 255, 255, 0.075);
+}
+
+.cinema-console .chat-input-area input::placeholder {
+    opacity: 0.45;
+}
+
+.cinema-console .chat-input-area button {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+
+    display: grid;
+    place-items: center;
+
+    color: #fff;
+    background: linear-gradient(135deg, #d875ad, #a86fba);
+
+    border: none;
+    border-radius: 9px;
+
+    font-size: 19px;
+    cursor: pointer;
+
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.cinema-console .chat-input-area button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+}
+
+/* COLEÇÃO DE EPISÓDIOS */
+
+.main-layout > .episodes-section {
+    width: 100%;
+    margin-top: 0;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 800px) {
+
+    .main-layout {
+        gap: 24px;
+    }
+
+    .cinema-console {
+        border-radius: 15px;
+    }
+
+    .cinema-console .player-controls {
+        padding: 15px 17px;
+        min-height: 68px;
+    }
+
+    .cinema-console .chat-header {
+        padding: 16px 18px;
+        min-height: 68px;
+    }
+
+    .cinema-console .chat-messages {
+        min-height: 220px;
+        max-height: 350px;
+        padding: 20px 17px;
+    }
+
+    .cinema-console .chat-input-area {
+        padding: 13px 15px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .cinema-console {
+        border-radius: 12px;
+    }
+
+    .cinema-console .player-controls {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .cinema-console .playing-info strong {
+        font-size: 13px;
+    }
+
+    .cinema-console .chat-area {
+        min-height: 350px;
+    }
+
+    .cinema-console .chat-messages {
+        min-height: 200px;
+        max-height: 300px;
+    }
+
+    .cinema-console .chat-input-area input {
+        height: 44px;
+        font-size: 12px;
+    }
+
+    .cinema-console .chat-input-area button {
+        width: 44px;
+        height: 44px;
+    }
+
+}/* ==========================================
+   LUNIAN — DESKTOP CINEMA REFINEMENT
+========================================== */
+
+@media (min-width: 1001px) {
+
+    /* Garante que os episódios fiquem abaixo */
+
+    .main-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch;
+        width: 100%;
+        gap: 32px;
+    }
+
+    /* Painel integrado */
+
+    .cinema-console {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 410px;
+        width: 100%;
+        min-height: 560px;
+        align-items: stretch;
+    }
+
+    /* Área do vídeo */
+
+    .cinema-console .watch-area {
+        grid-column: 1;
+        grid-row: 1;
+        min-width: 0;
+    }
+
+    .cinema-console .video-container {
+        width: 100%;
+    }
+
+    .cinema-console .video-container video {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+    }
+
+    .cinema-console .player-controls {
+        min-height: 85px;
+        padding: 20px 26px;
+    }
+
+    /* Chat lateral */
+
+    .cinema-console .chat-area {
+        grid-column: 2;
+        grid-row: 1;
+
+        display: flex;
+        flex-direction: column;
+
+        height: 100%;
+        min-height: 560px;
+
+        border-left: 1px solid rgba(190, 204, 219, 0.14);
+    }
+
+    .cinema-console .chat-header {
+        min-height: 85px;
+        flex-shrink: 0;
+    }
+
+    .cinema-console .chat-messages {
+        flex: 1;
+        min-height: 0;
+        max-height: none;
+    }
+
+    .cinema-console .chat-input-area {
+        flex-shrink: 0;
+    }
+
+    /* Episódios em uma seção independente */
+
+    .main-layout > .episodes-section {
+        display: block;
+        width: 100%;
+        order: 2;
+        margin-top: 0;
+    }
+
+}
+
+@media (min-width: 801px) and (max-width: 1000px) {
+
+    .main-layout {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .cinema-console {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .main-layout > .episodes-section {
+        width: 100%;
+    }
+
+}/* ==========================================
+   LUNIAN — PROFILE PHOTOS
+========================================== */
+
+.participant-avatar {
+    overflow: hidden;
+    position: relative;
+    border-radius: 50%;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.participant-avatar img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
+
+/* Acabamento delicado */
+
+.participant-avatar {
+    border: 2px solid rgba(237, 117, 181, 0.45);
+
+    box-shadow:
+        0 0 0 3px rgba(237, 117, 181, 0.08),
+        0 4px 15px rgba(0, 0, 0, 0.18);
+}/* ==========================================
+   LUNIAN — IMMERSIVE MODE
+========================================== */
+
+/* Botão de expansão */
+
+.immersive-button {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    color: var(--paper);
+    background: rgba(255, 255, 255, 0.06);
+
+    border: 1px solid rgba(190, 204, 219, 0.18);
+    border-radius: 9px;
+
+    font-size: 23px;
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.immersive-button:hover {
+    color: var(--pink-light);
+    background: rgba(237, 117, 181, 0.12);
+    border-color: rgba(237, 117, 181, 0.45);
+}
+
+/* Painel em tela cheia */
+
+.cinema-console:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+
+    max-width: none;
+    max-height: none;
+
+    margin: 0;
+    border: none;
+    border-radius: 0;
+
+    background: #101827;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 390px;
+
+    overflow: hidden;
+}
+
+/* Player */
+
+.cinema-console:fullscreen .watch-area {
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.cinema-console:fullscreen .video-container {
+    flex: 1;
+    min-height: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cinema-console:fullscreen .video-container video {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    aspect-ratio: auto;
+
+    object-fit: contain;
+}
+
+.cinema-console:fullscreen .player-controls {
+    flex-shrink: 0;
+}
+
+/* Chat */
+
+.cinema-console:fullscreen .chat-area {
+    height: 100%;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    border-left: 1px solid rgba(190, 204, 219, 0.16);
+}
+
+.cinema-console:fullscreen .chat-messages {
+    flex: 1;
+    min-height: 0;
+    max-height: none;
+    overflow-y: auto;
+}
+
+.cinema-console:fullscreen .chat-input-area {
+    flex-shrink: 0;
+}
+
+/* Celular em tela cheia */
+
+@media (max-width: 800px) {
+
+    .cinema-console:fullscreen {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cinema-console:fullscreen .watch-area {
+        flex: 0 0 auto;
+    }
+
+    .cinema-console:fullscreen .video-container {
+        flex: none;
+        height: 35dvh;
+    }
+
+    .cinema-console:fullscreen .video-container video {
+        width: 100%;
+        height: 100%;
+    }
+
+    .cinema-console:fullscreen .player-controls {
+        min-height: 58px;
+        padding: 10px 15px;
+    }
+
+    .cinema-console:fullscreen .chat-area {
+        flex: 1;
+        min-height: 0;
+        height: auto;
+
+        border-left: none;
+        border-top: 1px solid rgba(190, 204, 219, 0.16);
+    }
+
+    .cinema-console:fullscreen .chat-messages {
+        flex: 1;
+        min-height: 0;
+        max-height: none;
+    }
+
+}/* ==========================================
+   LUNIAN — IMMERSIVE MODE
+========================================== */
+
+/* BOTÃO DE MODO IMERSIVO */
+
+.immersive-button {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    color: var(--paper);
+    background: rgba(255, 255, 255, 0.06);
+
+    border: 1px solid rgba(190, 204, 219, 0.18);
+    border-radius: 10px;
+
+    font-size: 24px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.immersive-button:hover {
+    color: var(--pink-light);
+    background: rgba(237, 117, 181, 0.12);
+    border-color: rgba(237, 117, 181, 0.45);
+    transform: scale(1.05);
+}
+
+
+/* ==========================================
+   TELA CHEIA — DESKTOP
+========================================== */
+
+.cinema-console:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+
+    max-width: none;
+    max-height: none;
+
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    border-radius: 0;
+
+    background: #101827;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 390px;
+
+    overflow: hidden;
+}
+
+
+/* ÁREA DO PLAYER */
+
+.cinema-console:fullscreen .watch-area {
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+}
+
+.cinema-console:fullscreen .video-container {
+    flex: 1;
+
+    width: 100%;
+    min-height: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.cinema-console:fullscreen .video-container video {
+    width: 100%;
+    height: 100%;
+
+    max-height: 100%;
+
+    aspect-ratio: auto;
+    object-fit: contain;
+}
+
+.cinema-console:fullscreen .player-controls {
+    flex-shrink: 0;
+}
+
+
+/* ÁREA DO CHAT */
+
+.cinema-console:fullscreen .chat-area {
+    width: 100%;
+    height: 100%;
+
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    border-left: 1px solid rgba(190, 204, 219, 0.16);
+    border-radius: 0;
+
+    overflow: hidden;
+}
+
+.cinema-console:fullscreen .chat-header {
+    flex-shrink: 0;
+}
+
+.cinema-console:fullscreen .chat-messages {
+    flex: 1;
+
+    min-height: 0;
+    max-height: none;
+
+    overflow-y: auto;
+}
+
+.cinema-console:fullscreen .chat-input-area {
+    flex-shrink: 0;
+}
+
+
+/* ==========================================
+   TELA CHEIA — CELULAR
+========================================== */
+
+@media (max-width: 800px) {
+
+    .cinema-console:fullscreen {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* PLAYER */
+
+    .cinema-console:fullscreen .watch-area {
+        flex: 0 0 auto;
+
+        width: 100%;
+        height: auto;
+    }
+
+    .cinema-console:fullscreen .video-container {
+        flex: none;
+
+        width: 100%;
+        height: 35dvh;
+        min-height: 180px;
+    }
+
+    .cinema-console:fullscreen .video-container video {
+        width: 100%;
+        height: 100%;
+
+        object-fit: contain;
+    }
+
+    .cinema-console:fullscreen .player-controls {
+        min-height: 58px;
+        padding: 10px 15px;
+    }
+
+    /* CHAT */
+
+    .cinema-console:fullscreen .chat-area {
+        flex: 1;
+
+        width: 100%;
+        height: auto;
+        min-height: 0;
+
+        border-left: none;
+        border-top: 1px solid rgba(190, 204, 219, 0.16);
+    }
+
+    .cinema-console:fullscreen .chat-messages {
+        flex: 1;
+
+        min-height: 0;
+        max-height: none;
+    }
+
+}/* ==========================================
+   LUNIAN — YOUTUBE SOURCE
+   INTEGRATED CINEMA INTERFACE
+========================================== */
+
+/* Área de inserção do YouTube */
+
+.youtube-controls {
+    width: 100%;
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 16px 25px;
+
+    background: rgba(255, 255, 255, 0.025);
+    border-top: 1px solid rgba(190, 204, 219, 0.10);
+    border-bottom: 1px solid rgba(190, 204, 219, 0.10);
+}
+
+/* Identificação da fonte */
+
+.youtube-source-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+
+    color: var(--paper);
+
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 1.8px;
+}
+
+.youtube-source-label .source-indicator {
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--pink);
+    box-shadow: 0 0 10px rgba(237, 117, 181, 0.5);
+}
+
+/* Formulário */
+
+.youtube-form {
+    width: min(100%, 540px);
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.youtube-form input {
+    flex: 1;
+    min-width: 0;
+    height: 42px;
+
+    padding: 0 15px;
+
+    color: var(--paper);
+    background: rgba(255, 255, 255, 0.055);
+
+    border: 1px solid rgba(190, 204, 219, 0.15);
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: var(--font-body);
+    font-size: 12px;
+
+    transition: border-color .25s ease, background .25s ease;
+}
+
+.youtube-form input:focus {
+    border-color: rgba(237, 117, 181, 0.6);
+    background: rgba(255, 255, 255, 0.075);
+}
+
+.youtube-form input::placeholder {
+    color: rgba(233, 232, 223, 0.4);
+}
+
+/* Botão carregar */
+
+.youtube-form button {
+    height: 42px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 0 17px;
+
+    color: white;
+    background: linear-gradient(
+        135deg,
+        #c66b9e,
+        #956da9
+    );
+
+    border: 1px solid rgba(237, 117, 181, 0.35);
+    border-radius: 8px;
+
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1.2px;
+
+    transition: .25s ease;
+}
+
+.youtube-form button span {
+    font-size: 15px;
+}
+
+.youtube-form button:hover {
+    filter: brightness(1.13);
+    transform: translateY(-2px);
+}
+
+/* Player dinâmico */
+
+#youtubePlayerHost {
+    width: 100%;
+    height: 100%;
+    min-height: 250px;
+
+    position: relative;
+    background: #080d16;
+}
+
+#youtubePlayerHost iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+}
+
+/* ==========================================
+   MODO IMERSIVO
+========================================== */
+
+.cinema-console:fullscreen .youtube-controls {
+    flex-shrink: 0;
+}
+
+.cinema-console:fullscreen #youtubePlayerHost {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+/* ==========================================
+   CELULARES
+========================================== */
+
+@media (max-width: 800px) {
+
+    .youtube-controls {
+        grid-row: 2;
+
+        align-items: stretch;
+        flex-direction: column;
+        gap: 11px;
+
+        padding: 14px 17px;
+    }
+
+    .youtube-form {
+        width: 100%;
+        max-width: none;
+    }
+
+    .youtube-form input {
+        height: 42px;
+        font-size: 12px;
+    }
+
+    .youtube-form button {
+        height: 42px;
+        padding: 0 13px;
+    }
+
+    /* Reorganiza os elementos da console */
+
+    .cinema-console .player-controls {
+        grid-row: 3;
+    }
+
+    .cinema-console .chat-area {
+        grid-row: 4;
+    }
+
+    .main-layout > .episodes-section {
+        grid-row: 5;
+    }
+
+    /* Tela cheia no celular */
+
+    .cinema-console:fullscreen .youtube-controls {
+        flex-shrink: 0;
+        padding: 10px 14px;
+    }
+
+    .cinema-console:fullscreen #youtubePlayerHost {
+        min-height: 0;
+    }
+}
+
+/* ==========================================
+   TELAS PEQUENAS
+========================================== */
+
+@media (max-width: 480px) {
+
+    .youtube-controls {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .youtube-source-label {
+        font-size: 8px;
+        letter-spacing: 1.4px;
+    }
+
+    .youtube-form {
+        gap: 7px;
+    }
+
+    .youtube-form input {
+        padding: 0 10px;
+        font-size: 11px;
+    }
+
+    .youtube-form button {
+        padding: 0 11px;
+        font-size: 8px;
+        letter-spacing: .8px;
+    }
+
+    .cinema-console:fullscreen .youtube-controls {
+        padding: 9px 11px;
+    }
+}/* TESTE DE VISIBILIDADE DAS TELAS */
+
+.hidden {
+    display: none !important;
+}
+
+.room-screen {
+    display: none;
+}
+
+.room-screen:not(.hidden) {
+    display: block;
+}/* ==========================================
+   LUNIAN — PROFILE & CHAT REFINEMENT
+   PERSONAL CONNECTION / SOFT MESSAGING
+========================================== */
+
+
+/* ==========================================
+   01. PERFIS — FOTOS E NOMES
+========================================== */
+
+.participant {
+    gap: 13px;
+}
+
+.participant-avatar {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+
+    border: 2px solid rgba(237, 117, 181, .55);
+    box-shadow:
+        0 0 0 4px rgba(237, 117, 181, .07),
+        0 5px 16px rgba(23, 35, 51, .15);
+
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.participant-avatar:hover {
+    transform: scale(1.06);
+    box-shadow:
+        0 0 0 5px rgba(237, 117, 181, .11),
+        0 7px 20px rgba(23, 35, 51, .18);
+}
+
+.participant-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.participant-info {
+    gap: 5px;
+}
+
+.participant-info strong {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .1px;
+}
+
+.participant-info span {
+    font-size: 9px;
+    letter-spacing: .5px;
+}
+
+
+/* ==========================================
+   02. CHAT — MENSAGENS EM BALÕES
+========================================== */
+
+.cinema-console .chat-messages {
+    gap: 15px;
+    padding: 24px;
+}
+
+/* Estrutura dos balões */
+
+.cinema-console .message {
+    width: fit-content;
+    max-width: 82%;
+
+    padding: 13px 17px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    border: 1px solid rgba(190, 204, 219, .12);
+    border-radius: 16px 16px 16px 5px;
+
+    background: rgba(255, 255, 255, .075);
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+
+    backdrop-filter: blur(8px);
+}
+
+/* Mensagens recebidas */
+
+.cinema-console .message.other-message {
+    align-self: flex-start;
+
+    background: linear-gradient(
+        135deg,
+        rgba(91, 112, 139, .24),
+        rgba(65, 82, 108, .16)
+    );
+
+    border-color: rgba(190, 204, 219, .16);
+
+    border-radius: 16px 16px 16px 5px;
+}
+
+/* Mensagens enviadas */
+
+.cinema-console .message.own-message {
+    align-self: flex-end;
+
+    background: linear-gradient(
+        135deg,
+        rgba(190, 105, 157, .30),
+        rgba(133, 91, 151, .24)
+    );
+
+    border-color: rgba(237, 117, 181, .27);
+
+    border-radius: 16px 16px 5px 16px;
+}
+
+/* Nome de quem enviou */
+
+.cinema-console .message-sender {
+    color: #e9a5cc;
+
+    font-family: var(--font-heading);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .3px;
+}
+
+/* Texto */
+
+.cinema-console .message-text {
+    color: #f3f1f4;
+
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+
+    overflow-wrap: anywhere;
+}
+
+/* Horário */
+
+.cinema-console .message-time {
+    align-self: flex-end;
+
+    color: rgba(225, 228, 235, .48);
+
+    font-family: var(--font-mono);
+    font-size: 9px;
+}
+
+
+/* ==========================================
+   03. CHAT — CAMPO DE DIGITAÇÃO
+========================================== */
+
+.cinema-console .chat-input-area input {
+    font-size: 14px;
+    border-radius: 12px;
+}
+
+.cinema-console .chat-input-area input::placeholder {
+    color: rgba(233, 232, 223, .48);
+}
+
+.cinema-console .chat-input-area button {
+    border-radius: 12px;
+}
+
+
+/* ==========================================
+   04. RESPONSIVIDADE
+========================================== */
+
+@media (max-width: 800px) {
+
+    .participant-avatar {
+        width: 45px;
+        height: 45px;
+    }
+
+    .participant-info strong {
+        font-size: 13px;
+    }
+
+    .cinema-console .chat-messages {
+        gap: 13px;
+        padding: 19px 16px;
+    }
+
+    .cinema-console .message {
+        max-width: 88%;
+        padding: 12px 15px;
+    }
+
+    .cinema-console .message-text {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .participants {
+        gap: 13px;
+    }
+
+    .participant {
+        gap: 9px;
+    }
+
+    .participant-avatar {
+        width: 41px;
+        height: 41px;
+    }
+
+    .participant-info strong {
+        font-size: 12px;
+    }
+
+    .cinema-console .message {
+        max-width: 91%;
+        padding: 11px 14px;
+    }
+
+    .cinema-console .message-text {
+        font-size: 14px;
+        line-height: 1.55;
+    }
+
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Transmissão — LUNIAN</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            background: #080d16;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        main {
+            width: min(90%, 900px);
+            text-align: center;
+        }
+
+        video {
+            width: 100%;
+            background: #000;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 14px 24px;
+            border: 0;
+            border-radius: 8px;
+            background: #d47eaf;
+            color: white;
+            cursor: pointer;
+        }
+
+        p {
+            color: #aaa;
+        }
+    </style>
+</head>
+
+<body>
+
+<main>
+    <h1>LUNIAN — Teste de Transmissão</h1>
+
+    <p>Teste de captura de tela e áudio.</p>
+
+    <button id="startButton">INICIAR TRANSMISSÃO</button>
+
+    <video id="screenVideo" autoplay playsinline controls></video>
+
+    <p id="status">Aguardando transmissão...</p>
+</main>
+
+<script>
+    const button = document.getElementById("startButton");
+    const video = document.getElementById("screenVideo");
+    const status = document.getElementById("status");
+
+    button.addEventListener("click", async () => {
+        try {
+            const stream = await navigator.mediaDevices.getDisplayMedia({
+                video: true,
+                audio: true
+            });
+
+            video.srcObject = stream;
+
+            status.textContent = "Captura iniciada! Verifique a imagem e o áudio.";
+
+            stream.getVideoTracks()[0].addEventListener("ended", () => {
+                status.textContent = "Transmissão encerrada.";
+                video.srcObject = null;
+            });
+
+        } catch (error) {
+            status.textContent = "Erro: " + error.message;
+            console.error(error);
+        }
+    });
+</script>
+
+</body>
+</html>
