@@ -581,7 +581,6 @@ function loadLocalEpisode(number, shouldPublish = true) {
     };
 }
 
-
 /* =====================================================
    15. EPISODE SELECTION
 ===================================================== */
@@ -595,6 +594,20 @@ episodesGrid?.addEventListener("click", (event) => {
     const number = Number(episodeCard.dataset.episode);
 
     loadLocalEpisode(number);
+
+    // Aguarda o carregamento e leva até o player
+    requestAnimationFrame(() => {
+
+        const videoContainer = document.querySelector(".video-container");
+
+        if (!videoContainer) return;
+
+        videoContainer.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    });
 
 });
 
