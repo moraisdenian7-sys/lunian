@@ -1,2107 +1,1292 @@
 /* =========================================================
-   LUNIAN — FUTURE LUXURY
-   PRIVATE ORBITAL CINEMA / WATCH & TALK
-   Complete stylesheet redesign
-========================================================= */
-
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Michroma&display=swap');
-
+   1. VARIÁVEIS E CONFIGURAÇÕES GLOBAIS
+   ========================================================= */
 :root {
-    color-scheme: light;
-    --ink: #172536;
-    --ink-2: #31465b;
-    --muted: #718092;
-    --paper: #e9edf0;
-    --paper-2: #f6f7f6;
-    --panel: rgba(250, 252, 252, .76);
-    --line: rgba(37, 58, 77, .13);
-    --line-strong: rgba(37, 58, 77, .22);
-    --navy: #101d2d;
-    --navy-2: #17283b;
-    --navy-3: #20364c;
-    --silver: #b9c8d1;
-    --silver-light: #e5edf0;
-    --violet: #9a91c9;
-    --rose: #d99abb;
-    --rose-deep: #a85e86;
-    --cyan: #8bb6c7;
-    --green: #83b69b;
-    --shadow-soft: 0 18px 55px rgba(31, 48, 65, .09);
-    --shadow-deep: 0 30px 90px rgba(12, 24, 39, .22);
-    --font-display: 'Michroma', sans-serif;
-    --font-heading: 'Manrope', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
-    --font-mono: 'DM Mono', monospace;
-    --ease-out: cubic-bezier(.2, .75, .25, 1);
+  --bg-space: #06050e;
+  --bg-surface: rgba(18, 15, 34, 0.68);
+  --bg-surface-solid: #110e22;
+  --border-glass: rgba(255, 255, 255, 0.1);
+  --border-pink: rgba(255, 107, 181, 0.35);
+
+  --pink-primary: #ff6bb5;
+  --pink-soft: #ffb3d9;
+  --purple-nebula: #7928ca;
+  --cyan-star: #7ee8fa;
+  --green-online: #38ef7d;
+
+  --text-main: #f8f7fc;
+  --text-muted: #9b97b2;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+body.night-mode,
+body.light-nebula {
+  --bg-space: #040309;
+  --bg-surface: rgba(12, 10, 24, 0.78);
+  --pink-primary: #ff55ad;
 }
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    min-height: 100%;
-    scroll-behavior: smooth;
-    scrollbar-color: rgba(115, 139, 158, .55) transparent;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    min-height: 100vh;
-    overflow-x: hidden;
-    color: var(--ink);
-    background: var(--paper);
-    font-family: var(--font-body);
-    -webkit-font-smoothing: antialiased;
-    transition: background .6s ease, color .6s ease;
+  background-color: var(--bg-space);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
 }
 
-button, input {
-    font: inherit;
-}
-
-button {
-    cursor: pointer;
-}
-
-button:focus-visible,
-input:focus-visible {
-    outline: 2px solid var(--rose-deep);
-    outline-offset: 3px;
-}
-
-::selection {
-    color: #fff;
-    background: var(--rose-deep);
-}
-
-.hidden {
-    display: none !important;
-}
-
-/* ---------------------------------------------------------
-   01. ATMOSPHERE — PEARL SPACE
---------------------------------------------------------- */
-
+/* =========================================================
+   2. FUNDO ESPACIAL 2D ANIMADO (.space-background)
+   ========================================================= */
 .space-background {
-    position: fixed;
-    z-index: -2;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    background:
-        radial-gradient(ellipse at 12% 8%, rgba(255,255,255,.96), transparent 34%),
-        radial-gradient(ellipse at 86% 22%, rgba(155,174,194,.22), transparent 32%),
-        radial-gradient(ellipse at 78% 88%, rgba(211,155,190,.16), transparent 34%),
-        linear-gradient(135deg, #e9edf0 0%, #dce4e8 48%, #e9e5eb 100%);
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 20%, #160d2c 0%, var(--bg-space) 80%);
 }
 
-.space-background::before,
-.space-background::after {
-    content: "";
-    position: absolute;
-    border: 1px solid rgba(94, 124, 147, .17);
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-.space-background::before {
-    width: min(76vw, 980px);
-    aspect-ratio: 1;
-    top: 5%;
-    right: -34%;
-    box-shadow:
-        0 0 0 22px rgba(255,255,255,.11),
-        0 0 0 23px rgba(94,124,147,.09),
-        0 0 0 75px rgba(255,255,255,.07),
-        0 0 0 76px rgba(94,124,147,.06);
-    animation: slowOrbit 90s linear infinite;
-}
-
-.space-background::after {
-    width: 420px;
-    height: 420px;
-    left: -260px;
-    bottom: -180px;
-    box-shadow: 0 0 0 28px rgba(216,154,187,.055), 0 0 0 70px rgba(216,154,187,.035);
-}
-
-.stars {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    opacity: .42;
-    background-image:
-        radial-gradient(circle, rgba(255,255,255,.95) 1px, transparent 1.6px),
-        radial-gradient(circle, rgba(102,139,164,.55) 1px, transparent 1.7px);
-    background-size: 91px 91px, 149px 149px;
-    background-position: 0 0, 37px 61px;
-}
-
-.stars::before,
+.stars,
 .stars::after {
-    content: "";
-    position: absolute;
-    top: -12%;
-    width: 110px;
-    height: 1px;
-    opacity: 0;
-    border-radius: 50%;
-    transform: rotate(135deg);
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,.9));
-    box-shadow: 0 0 8px rgba(255,255,255,.7);
-}
-
-.stars::before {
-    left: 68%;
-    animation: meteorPass 17s ease-in-out infinite;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background-image:
+    radial-gradient(1.5px 1.5px at 40px 60px, #ffffff, transparent),
+    radial-gradient(1px 1px at 120px 180px, var(--pink-soft), transparent),
+    radial-gradient(2px 2px at 240px 90px, #ffffff, transparent),
+    radial-gradient(1.5px 1.5px at 310px 260px, var(--cyan-star), transparent),
+    radial-gradient(1px 1px at 80px 320px, #ffffff, transparent);
+  background-size: 360px 360px;
+  animation: spaceDrift 70s linear infinite;
+  opacity: 0.85;
 }
 
 .stars::after {
-    left: 28%;
-    width: 78px;
-    animation: meteorPass 23s 7s ease-in-out infinite;
+  background-size: 520px 520px;
+  animation: spaceDrift 45s linear infinite, starTwinkle 4s ease-in-out infinite alternate;
+  opacity: 0.5;
 }
 
 .pink-glow {
-    position: absolute;
-    top: -260px;
-    right: -180px;
-    width: 620px;
-    height: 620px;
-    border-radius: 50%;
-    background: rgba(207, 145, 184, .19);
-    filter: blur(100px);
-    animation: ambientDrift 18s ease-in-out infinite alternate;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: 65vw;
+  height: 65vw;
+  max-width: 750px;
+  max-height: 750px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 107, 181, 0.18) 0%,
+    rgba(121, 40, 202, 0.12) 45%,
+    transparent 70%
+  );
+  filter: blur(50px);
+  animation: nebulaPulse 9s ease-in-out infinite alternate;
+  pointer-events: none;
 }
 
-@keyframes slowOrbit {
-    to { transform: rotate(360deg); }
+@keyframes spaceDrift {
+  from { transform: translateY(0) translateX(0); }
+  to { transform: translateY(-360px) translateX(-180px); }
 }
 
-@keyframes ambientDrift {
-    from { transform: translate3d(0, 0, 0) scale(.94); }
-    to { transform: translate3d(-55px, 45px, 0) scale(1.08); }
+@keyframes starTwinkle {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.9; }
 }
 
-@keyframes meteorPass {
-    0%, 12% { opacity: 0; transform: translate3d(0, 0, 0) rotate(135deg); }
-    15% { opacity: .65; }
-    25%, 100% { opacity: 0; transform: translate3d(-210px, 210px, 0) rotate(135deg); }
+@keyframes nebulaPulse {
+  0% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.75; }
+  100% { transform: translate(-48%, -52%) scale(1.12); opacity: 1; }
 }
 
-/* ---------------------------------------------------------
-   02. ARRIVAL — ACCESS PORTAL
---------------------------------------------------------- */
-
+/* =========================================================
+   3. ENTRADA VIP (.entrance-screen)
+   ========================================================= */
 .entrance-screen {
-    position: relative;
-    isolation: isolate;
-    min-height: 100svh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 64px 24px 88px;
-    overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 2rem;
+  overflow: hidden;
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.entrance-screen::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    top: 50%;
-    left: 50%;
-    width: min(920px, 110vw);
-    aspect-ratio: 1;
-    border: 1px solid rgba(91, 124, 149, .23);
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scaleY(.68);
-    box-shadow:
-        0 0 0 16px rgba(255,255,255,.16),
-        0 0 0 17px rgba(91,124,149,.11),
-        0 0 0 58px rgba(255,255,255,.09),
-        0 0 0 59px rgba(91,124,149,.08),
-        0 0 0 118px rgba(255,255,255,.05);
-    animation: portalRotate 75s linear infinite;
-    pointer-events: none;
+.intro-photo {
+  position: absolute;
+  width: 150px;
+  height: 200px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border-glass);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  opacity: 0.65;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 1;
 }
 
-.entrance-screen::after {
-    content: "LUNIAN SPACE STATION     /     ORBITAL ACCESS 001";
-    position: absolute;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: rgba(35, 56, 75, .55);
-    font: 9px var(--font-mono);
-    letter-spacing: 2.6px;
-    white-space: nowrap;
+.intro-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-@keyframes portalRotate {
-    from { transform: translate(-50%, -50%) scaleY(.68) rotate(0deg); }
-    to { transform: translate(-50%, -50%) scaleY(.68) rotate(360deg); }
+.intro-photo:hover {
+  opacity: 1;
+  z-index: 3;
+  border-color: var(--pink-primary);
+}
+
+.photo-one {
+  top: 10%;
+  left: 8%;
+  transform: rotate(-8deg);
+  animation: floatCard 6s ease-in-out infinite;
+}
+
+.photo-two {
+  top: 12%;
+  right: 9%;
+  transform: rotate(7deg);
+  animation: floatCard 7s ease-in-out infinite 1s;
+}
+
+.photo-three {
+  bottom: 10%;
+  left: 11%;
+  transform: rotate(6deg);
+  animation: floatCard 6.5s ease-in-out infinite 0.5s;
+}
+
+.photo-four {
+  bottom: 12%;
+  right: 10%;
+  transform: rotate(-6deg);
+  animation: floatCard 7.5s ease-in-out infinite 1.5s;
+}
+
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0px) rotate(var(--rot, -4deg)); }
+  50% { transform: translateY(-14px) rotate(var(--rot, 2deg)); }
 }
 
 .entrance-content {
-    position: relative;
-    z-index: 1;
-    width: min(100%, 700px);
-    padding: 58px 58px 46px;
-    overflow: hidden;
-    text-align: center;
-    border: 1px solid rgba(255,255,255,.82);
-    border-radius: 8px;
-    background:
-        linear-gradient(145deg, rgba(250,252,252,.88), rgba(225,232,235,.72));
-    box-shadow:
-        0 35px 110px rgba(34, 53, 71, .15),
-        inset 0 1px 0 rgba(255,255,255,.95);
-    backdrop-filter: blur(24px) saturate(1.15);
-    -webkit-backdrop-filter: blur(24px) saturate(1.15);
-    animation: portalArrival 1s var(--ease-out) both;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 460px;
 }
 
-.entrance-content::before {
-    content: "";
-    position: absolute;
-    top: -115px;
-    right: -100px;
-    width: 250px;
-    height: 250px;
-    border: 1px solid rgba(197, 132, 172, .45);
-    border-radius: 50%;
-    box-shadow: 0 0 0 14px rgba(197,132,172,.06), 0 0 0 38px rgba(197,132,172,.04);
-    pointer-events: none;
-}
-
-@keyframes portalArrival {
-    from { opacity: 0; transform: translateY(24px) scale(.975); filter: blur(8px); }
-    to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-}
-
-.entrance-subtitle {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    padding: 9px 14px;
-    border: 1px solid rgba(168,94,134,.25);
-    background: rgba(217,154,187,.09);
-    color: var(--rose-deep);
-    font: 9px var(--font-mono);
-    letter-spacing: 2.8px;
-}
-
-.entrance-subtitle::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--rose);
-    box-shadow: 0 0 12px rgba(217,154,187,.9);
+.entrance-subtitle,
+.section-eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--pink-primary);
+  margin-bottom: 0.6rem;
+  display: inline-block;
 }
 
 .entrance-title {
-    position: relative;
-    color: var(--ink);
-    font: 400 clamp(43px, 8vw, 76px)/1.3 var(--font-display);
-    letter-spacing: clamp(5px, 1.2vw, 13px);
-    background: linear-gradient(115deg, #172536 10%, #637f91 53%, #172536 90%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 8vw, 5rem);
+  font-weight: 700;
+  letter-spacing: 8px;
+  line-height: 1;
+  background: linear-gradient(135deg, #ffffff 30%, var(--pink-soft) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 35px rgba(255, 107, 181, 0.3);
+  margin-bottom: 0.6rem;
 }
 
 .entrance-description {
-    margin-top: 12px;
-    color: var(--ink-2);
-    font: 500 13px var(--font-heading);
-    letter-spacing: 1.7px;
-}
-
-.entrance-description::after {
-    content: "EST. 001  /  PRIVATE CINEMA";
-    display: block;
-    margin-top: 14px;
-    color: var(--rose-deep);
-    font: 9px var(--font-mono);
-    letter-spacing: 2px;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
 }
 
 .ticket-container {
-    position: relative;
-    width: min(100%, 340px);
-    margin: 40px auto 34px;
-    padding: 10px;
-    border: 1px solid rgba(255,255,255,.95);
-    background: rgba(255,255,255,.54);
-    box-shadow: 0 20px 48px rgba(28,45,61,.13), 0 0 0 1px rgba(118,149,169,.1);
-    transform: rotate(-1deg);
-    transition: transform .65s var(--ease-out), box-shadow .65s var(--ease-out);
-}
-
-.ticket-container::before,
-.ticket-container::after {
-    display: block;
-    color: var(--rose-deep);
-    font: 8px var(--font-mono);
-    letter-spacing: 2.8px;
-}
-
-.ticket-container::before {
-    content: "ADMIT TWO";
-    padding: 5px 0 9px;
-}
-
-.ticket-container::after {
-    content: "LUNIAN  /  PRIVATE ACCESS";
-    padding: 9px 0 4px;
-    color: var(--muted);
+  width: 280px;
+  border-radius: 18px;
+  padding: 6px;
+  background: linear-gradient(135deg, rgba(255, 107, 181, 0.5), rgba(255, 255, 255, 0.08));
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 107, 181, 0.25);
+  margin-bottom: 2.2rem;
+  animation: ticketHover 5s ease-in-out infinite;
+  transition: transform 0.35s ease;
 }
 
 .ticket-container:hover {
-    transform: translateY(-7px) rotate(0);
-    box-shadow: 0 28px 60px rgba(28,45,61,.17), 0 0 28px rgba(217,154,187,.12);
+  transform: scale(1.04) rotate(1deg);
 }
 
 .ticket-image {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 2px;
+  width: 100%;
+  border-radius: 13px;
+  display: block;
+}
+
+@keyframes ticketHover {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
 }
 
 .enter-button {
-    width: min(100%, 360px);
-    min-height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 22px;
-    margin: 0 auto;
-    padding: 16px 24px;
-    border: 1px solid rgba(255,255,255,.24);
-    border-radius: 4px;
-    color: #f7f8f8;
-    background: linear-gradient(110deg, #17283b, #263e54);
-    box-shadow: 0 10px 25px rgba(18,35,52,.17), inset 0 1px 0 rgba(255,255,255,.13);
-    font: 10px var(--font-mono);
-    letter-spacing: 2.4px;
-    transition: transform .35s var(--ease-out), box-shadow .35s ease, background .35s ease;
-}
-
-.enter-button span {
-    color: #e6b5d0;
-    font-size: 18px;
-    transition: transform .35s var(--ease-out);
+  background: linear-gradient(135deg, var(--pink-primary), #d946ef);
+  color: #fff;
+  border: none;
+  padding: 1rem 2.2rem;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 0 25px rgba(255, 107, 181, 0.45);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .enter-button:hover {
-    transform: translateY(-3px);
-    background: linear-gradient(110deg, #263e54, #3b5368);
-    box-shadow: 0 16px 34px rgba(18,35,52,.23), 0 0 22px rgba(217,154,187,.13);
-}
-
-.enter-button:hover span {
-    transform: translate(4px, -3px);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 0 40px rgba(255, 107, 181, 0.8);
 }
 
 .entrance-footer {
-    display: block;
-    margin-top: 28px;
-    color: rgba(49,70,91,.58);
-    font: 8px var(--font-mono);
-    letter-spacing: 3px;
+  margin-top: 1.8rem;
+  font-size: 0.7rem;
+  letter-spacing: 2.5px;
+  color: var(--text-muted);
+  opacity: 0.7;
 }
 
-/* ---------------------------------------------------------
-   03. MAIN ROOM / HEADER
---------------------------------------------------------- */
-
+/* =========================================================
+   4. SALA PRINCIPAL (.room-screen)
+   ========================================================= */
 .room-screen {
-    display: none;
-    width: min(1640px, 100%);
-    margin: 0 auto;
-    padding: 26px clamp(18px, 4vw, 62px) 38px;
-}
-
-.room-screen:not(.hidden) {
-    display: block;
-    animation: roomReveal .75s var(--ease-out) both;
-}
-
-@keyframes roomReveal {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 1.5rem 5% 3rem;
 }
 
 .room-header {
-    position: relative;
-    min-height: 86px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 22px;
-    padding: 0 3px 20px;
-    border-bottom: 1px solid var(--line);
-}
-
-.room-header::after {
-    content: "";
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 86px;
-    height: 2px;
-    background: linear-gradient(90deg, var(--rose-deep), var(--violet), transparent);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: var(--bg-surface);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border-glass);
+  border-radius: 20px;
+  margin-bottom: 2.5rem;
 }
 
 .brand h1 {
-    color: var(--ink);
-    font: 400 22px var(--font-display);
-    letter-spacing: 3.8px;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 3px;
 }
 
 .brand h1 span {
-    margin-left: 3px;
-    color: var(--rose-deep);
-    font: 10px var(--font-mono);
-    vertical-align: top;
+  color: var(--pink-primary);
+  font-size: 0.9rem;
 }
 
 .brand p {
-    margin-top: 7px;
-    color: var(--muted);
-    font: 8px var(--font-mono);
-    letter-spacing: 2px;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
 }
 
 .room-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 15px;
-    border: 1px solid var(--line);
-    border-radius: 30px;
-    color: var(--ink-2);
-    background: rgba(255,255,255,.38);
-    font: 9px var(--font-mono);
-    letter-spacing: 1px;
-    backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-glass);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
 }
 
 .status-indicator {
-    width: 7px;
-    height: 7px;
-    flex: 0 0 auto;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 0 4px rgba(131,182,155,.12), 0 0 12px rgba(131,182,155,.7);
-    animation: statusPulse 2.8s ease-in-out infinite;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--green-online);
+  box-shadow: 0 0 10px var(--green-online);
+  animation: blinkStatus 2s infinite;
 }
 
-@keyframes statusPulse {
-    50% { box-shadow: 0 0 0 7px rgba(131,182,155,.04), 0 0 16px rgba(131,182,155,.85); }
+@keyframes blinkStatus {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
 }
 
 .theme-button {
-    width: 42px;
-    height: 42px;
-    flex: 0 0 auto;
-    display: grid;
-    place-items: center;
-    border: 1px solid var(--line);
-    border-radius: 50%;
-    color: var(--ink);
-    background: rgba(255,255,255,.48);
-    font-size: 18px;
-    transition: transform .4s var(--ease-out), color .3s, background .3s, border-color .3s;
-    backdrop-filter: blur(12px);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-glass);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .theme-button:hover {
-    transform: rotate(35deg) translateY(-2px);
-    color: #fff;
-    border-color: var(--rose-deep);
-    background: var(--rose-deep);
+  border-color: var(--pink-primary);
+  color: var(--pink-primary);
+  transform: rotate(20deg);
 }
 
-/* ---------------------------------------------------------
-   04. INTRO / PARTICIPANTS
---------------------------------------------------------- */
-
-.room-content {
-    padding-top: 30px;
-}
-
+/* =========================================================
+   5. BOAS-VINDAS E PARTICIPANTES
+   ========================================================= */
 .welcome-area {
-    position: relative;
-    isolation: isolate;
-    min-height: 132px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-bottom: 18px;
-    padding: 25px 32px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,.82);
-    border-radius: 7px;
-    background:
-        linear-gradient(105deg, rgba(250,252,252,.78), rgba(222,231,235,.54)),
-        radial-gradient(circle at 88% 50%, rgba(217,154,187,.15), transparent 28%);
-    box-shadow: inset 0 1px 0 #fff, 0 12px 35px rgba(31,48,65,.045);
-    backdrop-filter: blur(14px);
-}
-
-.welcome-area::after {
-    content: "✧";
-    position: absolute;
-    z-index: -1;
-    top: 50%;
-    right: 7%;
-    color: rgba(174,139,177,.28);
-    font-size: clamp(70px, 9vw, 118px);
-    transform: translateY(-50%);
-    animation: welcomeFloat 8s ease-in-out infinite;
-}
-
-@keyframes welcomeFloat {
-    50% { transform: translateY(calc(-50% - 9px)) rotate(12deg); }
-}
-
-.section-eyebrow {
-    color: var(--rose-deep);
-    font: 9px var(--font-mono);
-    letter-spacing: 2.5px;
+  text-align: center;
+  margin-bottom: 1.8rem;
 }
 
 .welcome-area h2 {
-    margin-top: 9px;
-    color: var(--ink);
-    font: 600 clamp(24px, 3vw, 35px)/1.2 var(--font-heading);
-    letter-spacing: -1.2px;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  margin-bottom: 0.4rem;
 }
 
 .welcome-area p {
-    margin-top: 7px;
-    color: var(--muted);
-    font-size: 12px;
+  color: var(--text-muted);
 }
 
 .participants {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-    padding: 14px 20px 20px;
-    margin-bottom: 26px;
-    border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .participant {
-    display: flex;
-    align-items: center;
-    gap: 11px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-surface);
+  backdrop-filter: blur(12px);
+  padding: 0.6rem 1.2rem 0.6rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-glass);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.participant:hover {
+  border-color: var(--pink-primary);
+  transform: translateY(-2px);
 }
 
 .participant-avatar {
-    width: 42px;
-    height: 42px;
-    flex: 0 0 auto;
-    display: grid;
-    place-items: center;
-    overflow: hidden;
-    border: 1px solid rgba(185,133,169,.5);
-    border-radius: 50%;
-    color: var(--ink);
-    background: linear-gradient(145deg, #fff, #ead9e4);
-    box-shadow: 0 5px 16px rgba(36,52,70,.09), inset 0 1px 0 #fff;
-    font: 600 14px var(--font-heading);
-    transition: transform .35s var(--ease-out), box-shadow .35s ease;
-}
-
-.participant-avatar:hover {
-    transform: translateY(-3px) scale(1.04);
-    box-shadow: 0 9px 22px rgba(36,52,70,.13);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--pink-primary);
 }
 
 .participant-avatar img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .participant-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  display: flex;
+  flex-direction: column;
 }
 
 .participant-info strong {
-    color: var(--ink);
-    font: 700 12px var(--font-heading);
+  font-size: 0.92rem;
 }
 
 .participant-info span {
-    color: #6b9b82;
-    font: 8px var(--font-mono);
-    letter-spacing: .8px;
+  font-size: 0.75rem;
+  color: var(--green-online);
 }
 
 .connection-symbol {
-    color: var(--rose-deep);
-    font-size: 19px;
+  color: var(--pink-primary);
+  font-size: 1.3rem;
+  animation: spinStar 8s linear infinite;
 }
 
-/* ---------------------------------------------------------
-   05. WATCH & TALK CONSOLE
---------------------------------------------------------- */
-
-.main-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-    width: 100%;
+@keyframes spinStar {
+  from { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  to { transform: rotate(360deg) scale(1); }
 }
 
+/* =========================================================
+   6. PAINEL DE CINEMA (PLAYER + CHAT) — ALTURA TRAVADA
+   ========================================================= */
 .cinema-console {
-    position: relative;
-    isolation: isolate;
-    width: 100%;
-    min-width: 0;
-    min-height: 570px;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(330px, 390px);
-    align-items: stretch;
-    overflow: hidden;
-    border: 1px solid rgba(204,220,231,.2);
-    border-radius: 17px;
-    color: #eef3f6;
-    background:
-        radial-gradient(ellipse at 12% 0%, rgba(111,145,171,.16), transparent 38%),
-        linear-gradient(145deg, #1b2b3e 0%, #111d2d 56%, #172538 100%);
-    box-shadow: var(--shadow-deep), inset 0 1px 0 rgba(255,255,255,.09);
-    transition: box-shadow .5s ease, border-color .5s ease;
-}
-
-.cinema-console::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    top: -220px;
-    left: 18%;
-    width: 460px;
-    height: 460px;
-    border: 1px solid rgba(184,205,219,.09);
-    border-radius: 50%;
-    box-shadow: 0 0 0 20px rgba(184,205,219,.025), 0 0 0 58px rgba(184,205,219,.02);
-    pointer-events: none;
-}
-
-.cinema-console::after {
-    content: "";
-    position: absolute;
-    z-index: 4;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(226,238,244,.5), rgba(217,154,187,.35), transparent);
-    pointer-events: none;
-}
-
-.cinema-console .watch-area {
-    grid-column: 1;
-    grid-row: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.cinema-console .video-container {
-    position: relative;
-    width: 100%;
-    min-width: 0;
-    aspect-ratio: 16 / 9;
-    min-height: 250px;
-    overflow: hidden;
-    border: 0;
-    border-radius: 0;
-    background:
-        radial-gradient(ellipse at center, #233b52, #0a111b 72%);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,.045);
-}
-
-.cinema-console .video-container::before {
-    content: "";
-    position: absolute;
-    z-index: 3;
-    inset: 0;
-    border: 1px solid rgba(224,237,244,.12);
-    pointer-events: none;
-}
-
-.cinema-console .video-container video {
-    position: relative;
-    z-index: 2;
-    display: block;
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: contain;
-    background: #080e17;
-}
-
-.video-placeholder {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    color: #f2f5f7;
-    text-align: center;
-    background:
-        radial-gradient(circle at 50% 47%, rgba(190,137,177,.18), transparent 24%),
-        radial-gradient(ellipse at 50% 110%, rgba(91,139,165,.23), transparent 52%),
-        linear-gradient(135deg, #1d3147, #0d1725 72%);
-}
-
-.video-placeholder::before,
-.video-placeholder::after {
-    content: "";
-    position: absolute;
-    width: 260px;
-    height: 260px;
-    border: 1px solid rgba(201,220,231,.12);
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-.video-placeholder::after {
-    width: 340px;
-    height: 340px;
-    opacity: .55;
-}
-
-.placeholder-icon {
-    position: relative;
-    z-index: 1;
-    width: 62px;
-    height: 62px;
-    display: grid;
-    place-items: center;
-    margin-bottom: 18px;
-    border: 1px solid rgba(225,190,213,.55);
-    border-radius: 50%;
-    color: #e8bfd7;
-    background: rgba(255,255,255,.035);
-    box-shadow: 0 0 0 8px rgba(225,190,213,.045), 0 0 35px rgba(217,154,187,.17);
-    font-size: 23px;
-    animation: placeholderBreathe 4s ease-in-out infinite;
-}
-
-@keyframes placeholderBreathe {
-    50% { transform: scale(1.06); box-shadow: 0 0 0 12px rgba(225,190,213,.025), 0 0 45px rgba(217,154,187,.25); }
-}
-
-.video-placeholder h3 {
-    position: relative;
-    z-index: 1;
-    font: 400 clamp(14px, 2vw, 20px) var(--font-display);
-    letter-spacing: 2px;
-}
-
-.video-placeholder p {
-    position: relative;
-    z-index: 1;
-    margin-top: 10px;
-    color: rgba(234,241,245,.62);
-    font-size: 12px;
-}
-
-.cinema-console .player-controls {
-    min-height: 82px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    padding: 17px 24px;
-    border-bottom: 1px solid rgba(207,224,234,.12);
-    background: linear-gradient(90deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
-}
-
-.cinema-console .playing-info {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.cinema-console .playing-info > span {
-    color: #c69ab8;
-    font: 9px var(--font-mono);
-    letter-spacing: 2px;
-}
-
-.cinema-console .playing-info strong {
-    overflow: hidden;
-    color: #f0f4f6;
-    font: 700 14px var(--font-heading);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.sync-status {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: rgba(222,234,241,.65);
-    font: 9px var(--font-mono);
-    letter-spacing: 1px;
-    white-space: nowrap;
-}
-
-/* ---------------------------------------------------------
-   06. CHAT PANEL
---------------------------------------------------------- */
-
-.cinema-console .chat-area {
-    grid-column: 2;
-    grid-row: 1;
-    min-width: 0;
-    min-height: 570px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    border-left: 1px solid rgba(207,224,234,.13);
-    background:
-        linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
-}
-
-.cinema-console .chat-header {
-    min-height: 82px;
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 17px 20px;
-    border-bottom: 1px solid rgba(207,224,234,.11);
-    background: rgba(255,255,255,.025);
-}
-
-.cinema-console .chat-header h3 {
-    margin-top: 5px;
-    color: #f0f4f6;
-    font: 700 18px var(--font-heading);
-}
-
-.cinema-console .chat-live {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 7px 9px;
-    border: 1px solid rgba(131,182,155,.25);
-    border-radius: 30px;
-    color: #a7d2b8;
-    background: rgba(131,182,155,.06);
-    font: 8px var(--font-mono);
-    letter-spacing: 1px;
-    white-space: nowrap;
-}
-
-.cinema-console .chat-live::before {
-    content: "";
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: #8cc5a4;
-    box-shadow: 0 0 8px rgba(140,197,164,.7);
-}
-
-.cinema-console .chat-messages {
-    flex: 1 1 0;
-    min-height: 0;
-    height: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 20px 17px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(157,178,193,.4) transparent;
-    background:
-        radial-gradient(circle at 20% 20%, rgba(179,198,212,.045) 1px, transparent 1.7px),
-        radial-gradient(circle at 70% 75%, rgba(217,154,187,.05) 1px, transparent 1.7px);
-    background-size: 39px 39px, 57px 57px;
-}
-
-.cinema-console .chat-messages::-webkit-scrollbar {
-    width: 5px;
-}
-
-.cinema-console .chat-messages::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: rgba(157,178,193,.38);
-}
-
-.cinema-console .chat-welcome {
-    margin: auto;
-    padding: 20px 10px;
-    color: rgba(231,239,244,.64);
-    text-align: center;
-}
-
-.cinema-console .chat-welcome > span {
-    display: block;
-    margin-bottom: 10px;
-    color: #d9a5c4;
-    font-size: 24px;
-}
-
-.cinema-console .chat-welcome p {
-    font: 600 13px var(--font-heading);
-}
-
-.cinema-console .chat-welcome small {
-    display: block;
-    margin-top: 6px;
-    color: rgba(231,239,244,.45);
-    font-size: 10px;
-}
-
-/* Compatibilidade com as duas classes de mensagem usadas nas versões anteriores. */
-.cinema-console .message,
-.cinema-console .chat-message {
-    width: fit-content;
-    max-width: 84%;
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    padding: 11px 13px;
-    border: 1px solid rgba(177,199,214,.15);
-    border-radius: 13px 13px 13px 4px;
-    color: #eef3f6;
-    background: linear-gradient(140deg, rgba(107,139,163,.2), rgba(71,96,121,.16));
-    box-shadow: 0 6px 18px rgba(3,10,18,.08);
-    animation: messageEnter .28s var(--ease-out) both;
-}
-
-.cinema-console .message.own-message,
-.cinema-console .chat-message.sent {
-    align-self: flex-end;
-    border-color: rgba(217,154,187,.25);
-    border-radius: 13px 13px 4px 13px;
-    background: linear-gradient(140deg, rgba(174,112,151,.28), rgba(115,84,128,.23));
-}
-
-.cinema-console .message.other-message,
-.cinema-console .chat-message.received {
-    align-self: flex-start;
-}
-
-@keyframes messageEnter {
-    from { opacity: 0; transform: translateY(7px) scale(.985); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.cinema-console .message-sender {
-    color: #e0a9ca;
-    font: 600 10px var(--font-heading);
-    letter-spacing: .3px;
-}
-
-.cinema-console .chat-message.received .message-sender,
-.cinema-console .message.other-message .message-sender {
-    color: #a8c8d9;
-}
-
-.cinema-console .message-text {
-    color: #f0f4f6;
-    font: 400 14px/1.55 var(--font-body);
-    overflow-wrap: anywhere;
-}
-
-.cinema-console .message-time {
-    align-self: flex-end;
-    color: rgba(220,232,239,.43);
-    font: 8px var(--font-mono);
-}
-
-.cinema-console .chat-input-area {
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 14px 15px;
-    border-top: 1px solid rgba(207,224,234,.11);
-    background: rgba(255,255,255,.035);
-}
-
-.cinema-console .chat-input-area input {
-    width: 100%;
-    min-width: 0;
-    height: 45px;
-    padding: 0 14px;
-    border: 1px solid rgba(190,210,224,.17);
-    border-radius: 5px;
-    outline: none;
-    color: #f0f4f6;
-    background: rgba(5,13,23,.24);
-    font: 13px var(--font-body);
-    transition: border-color .25s ease, background .25s ease, box-shadow .25s ease;
-}
-
-.cinema-console .chat-input-area input:focus {
-    border-color: rgba(217,154,187,.6);
-    background: rgba(5,13,23,.38);
-    box-shadow: 0 0 0 3px rgba(217,154,187,.09);
-}
-
-.cinema-console .chat-input-area input::placeholder {
-    color: rgba(225,235,241,.4);
-}
-
-.cinema-console .chat-input-area button {
-    width: 45px;
-    height: 45px;
-    flex: 0 0 auto;
-    display: grid;
-    place-items: center;
-    border: 1px solid rgba(255,255,255,.15);
-    border-radius: 5px;
-    color: #fff;
-    background: linear-gradient(135deg, #b9789e, #8179a9);
-    box-shadow: 0 6px 17px rgba(8,13,23,.2);
-    font-size: 19px;
-    transition: transform .25s var(--ease-out), filter .25s ease, box-shadow .25s ease;
-}
-
-.cinema-console .chat-input-area button:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.12);
-    box-shadow: 0 9px 22px rgba(8,13,23,.27);
-}
-
-/* ---------------------------------------------------------
-   07. EPISODE LIBRARY
---------------------------------------------------------- */
-
-.main-layout > .episodes-section {
-    width: 100%;
-    margin-top: 0;
-}
-
-.episodes-section {
-    padding: 25px 27px 28px;
-    border: 1px solid rgba(255,255,255,.82);
-    border-radius: 9px;
-    background: rgba(249,251,251,.59);
-    box-shadow: 0 14px 38px rgba(31,48,65,.055), inset 0 1px 0 rgba(255,255,255,.9);
-    backdrop-filter: blur(15px);
-}
-
-.episodes-heading {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 17px;
-}
-
-.episodes-heading h3 {
-    margin-top: 7px;
-    color: var(--ink);
-    font: 700 22px var(--font-heading);
-    letter-spacing: -.6px;
-}
-
-.episode-count {
-    padding: 7px 10px;
-    border: 1px solid var(--line);
-    border-radius: 3px;
-    color: var(--muted);
-    font: 8px var(--font-mono);
-    letter-spacing: 1px;
-}
-
-.episodes-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 11px;
-}
-
-.episode-card {
-    position: relative;
-    min-height: 92px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 13px 14px;
-    overflow: hidden;
-    border: 1px solid var(--line);
-    border-radius: 5px;
-    color: var(--ink);
-    text-align: left;
-    background: linear-gradient(145deg, rgba(255,255,255,.8), rgba(230,236,238,.62));
-    transition: transform .35s var(--ease-out), border-color .3s ease, box-shadow .35s ease, background .3s ease;
-}
-
-.episode-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    opacity: 0;
-    background: linear-gradient(90deg, var(--rose), var(--violet), var(--cyan));
-    transition: opacity .3s ease;
-}
-
-.episode-card::after {
-    content: "";
-    position: absolute;
-    right: -23px;
-    bottom: -28px;
-    width: 75px;
-    height: 75px;
-    border: 1px solid rgba(130,157,177,.2);
-    border-radius: 50%;
-    box-shadow: 0 0 0 9px rgba(130,157,177,.035);
-    transition: transform .5s var(--ease-out);
-}
-
-.episode-card span {
-    color: var(--muted);
-    font: 8px var(--font-mono);
-    letter-spacing: 1px;
-}
-
-.episode-card strong {
-    color: var(--ink);
-    font: 600 27px var(--font-heading);
-    letter-spacing: -1px;
-}
-
-.episode-card:hover {
-    z-index: 1;
-    transform: translateY(-4px);
-    border-color: rgba(168,94,134,.38);
-    box-shadow: 0 12px 24px rgba(31,48,65,.1);
-}
-
-.episode-card:hover::before {
-    opacity: 1;
-}
-
-.episode-card:hover::after {
-    transform: scale(1.25);
-}
-
-.episode-card.active {
-    border-color: rgba(217,154,187,.58);
-    color: #fff;
-    background:
-        radial-gradient(circle at 100% 100%, rgba(217,154,187,.2), transparent 45%),
-        linear-gradient(145deg, #263c51, #152538);
-    box-shadow: 0 9px 25px rgba(20,37,55,.16), inset 0 1px 0 rgba(255,255,255,.1);
-}
-
-.episode-card.active::before {
-    opacity: 1;
-}
-
-.episode-card.active span {
-    color: #dcb3cc;
-}
-
-.episode-card.active strong {
-    color: #fff;
-}
-
-/* ---------------------------------------------------------
-   08. YOUTUBE SOURCE
---------------------------------------------------------- */
-
-.youtube-controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    padding: 16px 22px;
-    border-top: 1px solid rgba(207,224,234,.1);
-    background: rgba(255,255,255,.025);
-}
-
-.youtube-source-label {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    color: rgba(227,237,243,.72);
-    font: 9px var(--font-mono);
-    letter-spacing: 1.2px;
-    white-space: nowrap;
-}
-
-.youtube-source-label .source-indicator {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #c98eae;
-    box-shadow: 0 0 10px rgba(201,142,174,.55);
-}
-
-.youtube-form {
-    min-width: 0;
-    flex: 1;
-    display: flex;
-    gap: 8px;
-}
-
-.youtube-form input {
-    width: 100%;
-    min-width: 0;
-    height: 42px;
-    padding: 0 13px;
-    border: 1px solid rgba(190,210,224,.17);
-    border-radius: 4px;
-    outline: none;
-    color: #f0f4f6;
-    background: rgba(5,13,23,.24);
-    font-size: 12px;
-    transition: border-color .25s, box-shadow .25s;
-}
-
-.youtube-form input:focus {
-    border-color: rgba(217,154,187,.6);
-    box-shadow: 0 0 0 3px rgba(217,154,187,.08);
-}
-
-.youtube-form input::placeholder {
-    color: rgba(225,235,241,.38);
-}
-
-.youtube-form button {
-    min-width: 104px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 0 15px;
-    border: 1px solid rgba(255,255,255,.15);
-    border-radius: 4px;
-    color: #fff;
-    background: linear-gradient(135deg, #b9789e, #8179a9);
-    font: 9px var(--font-mono);
-    letter-spacing: .7px;
-    transition: transform .25s var(--ease-out), filter .25s;
-}
-
-.youtube-form button span {
-    font-size: 15px;
-}
-
-.youtube-form button:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.1);
-}
-
-#youtubePlayerHost {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    background: #080e17;
-}
-
-#youtubePlayerHost iframe {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
-/* ---------------------------------------------------------
-   09. IMMERSIVE MODE
---------------------------------------------------------- */
-
-.immersive-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9px;
-    min-height: 39px;
-    padding: 0 14px;
-    border: 1px solid rgba(190,210,224,.2);
-    border-radius: 4px;
-    color: #e7eef2;
-    background: rgba(255,255,255,.055);
-    font: 9px var(--font-mono);
-    letter-spacing: 1px;
-    transition: background .25s, border-color .25s, transform .25s;
-}
-
-.immersive-button:hover {
-    transform: translateY(-2px);
-    border-color: rgba(217,154,187,.5);
-    background: rgba(217,154,187,.13);
+  display: grid;
+  grid-template-columns: minmax(0, 1.75fr) minmax(350px, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  align-items: stretch;
 }
 
 .cinema-console:fullscreen {
-    width: 100%;
-    height: 100%;
-    min-height: 0;
+  background: radial-gradient(circle at 50% 20%, #160d2c 0%, var(--bg-space) 85%);
+  padding: 1.5rem;
+  margin-bottom: 0;
+  align-items: stretch;
+}
+
+.watch-area {
+  background: var(--bg-surface);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border-glass);
+  border-radius: 24px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  min-width: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #030208;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.video-container video,
+.video-container iframe,
+.video-container #youtubePlayerHost {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(circle, rgba(255, 107, 181, 0.12) 0%, #05040c 85%);
+  padding: 1.5rem;
+}
+
+.placeholder-icon {
+  font-size: 2rem;
+  color: var(--pink-primary);
+  margin-bottom: 0.6rem;
+  animation: ticketHover 3s ease-in-out infinite;
+}
+
+.video-placeholder h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.video-placeholder p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.youtube-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 0.65rem 0.95rem;
+  border-radius: 14px;
+  border: 1px solid var(--border-glass);
+  flex-wrap: wrap;
+}
+
+.youtube-source-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+}
+
+.source-indicator {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff0055;
+  box-shadow: 0 0 8px #ff0055;
+}
+
+.youtube-form {
+  display: flex;
+  flex: 1;
+  min-width: 220px;
+  gap: 8px;
+}
+
+.youtube-form input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  padding: 0.5rem 0.85rem;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.youtube-form input:focus {
+  border-color: var(--pink-primary);
+}
+
+.youtube-form button {
+  background: rgba(255, 107, 181, 0.18);
+  color: var(--pink-soft);
+  border: 1px solid var(--border-pink);
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.youtube-form button:hover {
+  background: var(--pink-primary);
+  color: #fff;
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.3rem;
+}
+
+.playing-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.playing-info span {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: var(--pink-primary);
+}
+
+.playing-info strong {
+  font-size: 0.95rem;
+}
+
+.sync-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+.immersive-button {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-glass);
+  color: var(--text-main);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+}
+
+.immersive-button:hover {
+  border-color: var(--pink-primary);
+  color: var(--pink-primary);
+}
+
+/* =========================================================
+   7. CHAT INTEGRADO (.chat-area) — SEM CRESCER INFINITAMENTE
+   ========================================================= */
+.chat-area {
+  position: relative;
+  background: var(--bg-surface);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border-glass);
+  border-radius: 24px;
+  padding: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-glass);
+  flex-shrink: 0;
+  background: transparent;
+  z-index: 2;
+}
+
+.chat-header h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+}
+
+.chat-live {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  color: var(--green-online);
+}
+
+/* Lista de mensagens rolando dentro do espaço restante */
+.chat-messages {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 220px;
+  max-height: 520px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+/* Em telas largas onde o player dita a altura da linha */
+@media (min-width: 961px) {
+  .cinema-console {
+    grid-template-rows: auto;
+  }
+
+  .chat-area {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(340px, 28vw);
-    border: 0;
-    border-radius: 0;
-    background: #0b1420;
-}
-
-.cinema-console:fullscreen .watch-area {
-    min-height: 0;
+    grid-template-rows: auto minmax(0, 1fr) auto;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-}
+    max-height: 680px;
+  }
 
-.cinema-console:fullscreen .video-container {
-    flex: 1 1 auto;
-    min-height: 0;
-    aspect-ratio: auto;
-}
-
-.cinema-console:fullscreen .video-container video {
-    width: 100%;
-    height: 100%;
-    aspect-ratio: auto;
-    object-fit: contain;
-}
-
-.cinema-console:fullscreen .player-controls {
-    flex: 0 0 auto;
-}
-
-.cinema-console:fullscreen .chat-area {
-    min-height: 0;
-    height: 100%;
-}
-
-.cinema-console:fullscreen .chat-messages {
-    min-height: 0;
+  .chat-messages {
     max-height: none;
-}
-
-.cinema-console:fullscreen .youtube-controls {
-    flex: 0 0 auto;
-}
-
-.cinema-console:fullscreen #youtubePlayerHost {
-    position: absolute;
-    inset: 0;
-    width: 100%;
     height: 100%;
+  }
 }
 
-/* ---------------------------------------------------------
-   10. FOOTER
---------------------------------------------------------- */
+.chat-messages::-webkit-scrollbar {
+  width: 5px;
+}
 
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(255, 107, 181, 0.35);
+  border-radius: 10px;
+}
+
+.chat-welcome {
+  margin: auto;
+  text-align: center;
+  color: var(--text-muted);
+  padding: 1.5rem 1rem;
+}
+
+.chat-welcome span {
+  display: block;
+  color: var(--pink-primary);
+  font-size: 1.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.chat-message {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.72rem 1rem;
+  border-radius: 16px;
+  max-width: 82%;
+  min-width: 110px;
+  width: fit-content;
+  flex-shrink: 0;
+  line-height: 1.35;
+  animation: messagePop 0.22s ease;
+}
+
+.chat-message .message-sender {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  display: block;
+}
+
+.chat-message .message-text {
+  font-size: 0.92rem;
+  color: var(--text-main);
+  margin: 0;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.chat-message.sent {
+  align-self: flex-end;
+  background: linear-gradient(135deg, rgba(255, 107, 181, 0.28), rgba(217, 70, 239, 0.22));
+  border: 1px solid rgba(255, 107, 181, 0.52);
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 6px 18px rgba(255, 107, 181, 0.14);
+}
+
+.chat-message.sent .message-sender {
+  color: var(--pink-soft);
+}
+
+.chat-message.received {
+  align-self: flex-start;
+  background: linear-gradient(135deg, rgba(126, 232, 250, 0.16), rgba(59, 130, 246, 0.2));
+  border: 1px solid rgba(126, 232, 250, 0.38);
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.chat-message.received .message-sender {
+  color: var(--cyan-star);
+}
+
+@keyframes messagePop {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.chat-input-area {
+  display: flex;
+  gap: 8px;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border-glass);
+  flex-shrink: 0;
+  background: transparent;
+  z-index: 2;
+}
+
+.chat-input-area input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.chat-input-area input:focus {
+  border-color: var(--pink-primary);
+}
+
+.chat-input-area button {
+  background: linear-gradient(135deg, var(--pink-primary), #d946ef);
+  border: none;
+  color: #fff;
+  width: 46px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chat-input-area button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 107, 181, 0.5);
+}
+
+/* =========================================================
+   8. LISTA DE EPISÓDIOS (.episodes-section)
+   ========================================================= */
+.episodes-section {
+  background: var(--bg-surface);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border-glass);
+  border-radius: 24px;
+  padding: 1.8rem;
+}
+
+.episodes-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.episodes-heading h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+}
+
+.episode-count {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-glass);
+}
+
+.episodes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.episode-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  padding: 1.2rem 1rem;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.8rem;
+  text-align: left;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.episode-card span {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+}
+
+.episode-card strong {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+  transition: color 0.3s ease;
+}
+
+.episode-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--pink-primary);
+  background: rgba(255, 107, 181, 0.08);
+  box-shadow: 0 10px 25px rgba(255, 107, 181, 0.2);
+}
+
+.episode-card:hover strong,
+.episode-card.active strong {
+  color: var(--pink-primary);
+}
+
+.episode-card.active {
+  border-color: var(--pink-primary);
+  background: rgba(255, 107, 181, 0.14);
+  box-shadow: 0 0 20px rgba(255, 107, 181, 0.25);
+}
+
+/* =========================================================
+   9. RODAPÉ, UTILITÁRIOS E RESPONSIVIDADE
+   ========================================================= */
 .room-footer {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 23px 4px 4px;
-    margin-top: 28px;
-    border-top: 1px solid var(--line);
-    color: var(--muted);
-    font: 8px var(--font-mono);
-    letter-spacing: 1.3px;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-glass);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
 }
 
-/* ---------------------------------------------------------
-   11. NIGHT MODE
---------------------------------------------------------- */
-
-body.night-mode {
-    color-scheme: dark;
-    --ink: #edf2f5;
-    --ink-2: #c0ccd5;
-    --muted: #91a1af;
-    --paper: #0d1724;
-    --paper-2: #152233;
-    --panel: rgba(25,39,56,.8);
-    --line: rgba(213,228,238,.13);
-    --line-strong: rgba(213,228,238,.22);
-    --shadow-soft: 0 18px 55px rgba(0,0,0,.18);
-    background: #0d1724;
+.hidden {
+  display: none !important;
 }
 
-body.night-mode .space-background {
-    background:
-        radial-gradient(ellipse at 15% 5%, rgba(103,137,165,.13), transparent 34%),
-        radial-gradient(ellipse at 88% 82%, rgba(181,113,158,.13), transparent 34%),
-        linear-gradient(135deg, #0d1724, #142235 55%, #1b1b2d);
+@media (max-width: 960px) {
+  .cinema-console {
+    grid-template-columns: 1fr;
+  }
+
+  .chat-messages {
+    max-height: 360px;
+  }
+
+  .intro-photo {
+    width: 105px;
+    height: 140px;
+    opacity: 0.45;
+  }
 }
 
-body.night-mode .stars {
-    opacity: .72;
-}
-
-body.night-mode .pink-glow {
-    opacity: .72;
-}
-
-body.night-mode .entrance-screen::after {
-    color: rgba(225,235,241,.48);
-}
-
-body.night-mode .entrance-screen::before {
-    border-color: rgba(190,210,224,.18);
-}
-
-body.night-mode .entrance-content {
-    border-color: rgba(220,235,244,.14);
-    background: linear-gradient(145deg, rgba(31,48,67,.94), rgba(17,29,45,.94));
-    box-shadow: 0 35px 110px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.08);
-}
-
-body.night-mode .entrance-title {
-    background: linear-gradient(115deg, #f1f4f5 10%, #d8a8c5 55%, #f1f4f5 90%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-body.night-mode .entrance-description,
-body.night-mode .entrance-footer {
-    color: #c0ccd5;
-}
-
-body.night-mode .ticket-container {
-    border-color: rgba(255,255,255,.15);
-    background: rgba(255,255,255,.07);
-}
-
-body.night-mode .room-header::after {
-    background: linear-gradient(90deg, var(--rose), var(--violet), transparent);
-}
-
-body.night-mode .room-status,
-body.night-mode .theme-button {
-    color: var(--ink);
-    border-color: var(--line);
-    background: rgba(255,255,255,.055);
-}
-
-body.night-mode .welcome-area {
-    border-color: rgba(255,255,255,.1);
-    background: linear-gradient(105deg, rgba(34,51,70,.88), rgba(24,38,56,.7));
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
-}
-
-body.night-mode .welcome-area h2,
-body.night-mode .participant-info strong,
-body.night-mode .brand h1,
-body.night-mode .episodes-heading h3 {
-    color: var(--ink);
-}
-
-body.night-mode .participant-avatar {
-    color: #1b2b3e;
-    background: linear-gradient(145deg, #f3e2ec, #c18eaa);
-}
-
-body.night-mode .episodes-section {
-    border-color: rgba(255,255,255,.1);
-    background: rgba(22,35,51,.68);
-    box-shadow: 0 14px 38px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.04);
-}
-
-body.night-mode .episode-card {
-    border-color: rgba(220,235,244,.12);
-    color: var(--ink);
-    background: linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
-}
-
-body.night-mode .episode-card strong {
-    color: var(--ink);
-}
-
-body.night-mode .episode-card:hover {
-    border-color: rgba(217,154,187,.5);
-    background: rgba(255,255,255,.09);
-}
-
-body.night-mode .episode-card.active {
-    background: linear-gradient(145deg, #3b435c, #1d3046);
-}
-
-body.night-mode .cinema-console {
-    border-color: rgba(205,222,234,.17);
-}
-
-body.night-mode .cinema-console .chat-area {
-    background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
-}
-
-body.night-mode .cinema-console .chat-message,
-body.night-mode .cinema-console .message {
-    background: linear-gradient(140deg, rgba(107,139,163,.2), rgba(71,96,121,.16));
-}
-
-body.night-mode .cinema-console .chat-message.sent,
-body.night-mode .cinema-console .message.own-message {
-    background: linear-gradient(140deg, rgba(174,112,151,.28), rgba(115,84,128,.23));
-}
-
-/* ---------------------------------------------------------
-   12. RESPONSIVE — TABLETS
---------------------------------------------------------- */
-
-@media (max-width: 1100px) {
-    .room-screen {
-        padding-right: 25px;
-        padding-left: 25px;
-    }
-
-    .cinema-console {
-        grid-template-columns: minmax(0, 1fr) minmax(290px, 34%);
-    }
-
-    .episodes-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .cinema-console .chat-header {
-        padding-right: 15px;
-        padding-left: 15px;
-    }
-
-    .cinema-console .chat-messages {
-        padding-right: 13px;
-        padding-left: 13px;
-    }
-}
-
-/* ---------------------------------------------------------
-   13. RESPONSIVE — MOBILE
---------------------------------------------------------- */
-
-@media (max-width: 800px) {
-    .room-screen {
-        padding: 17px 16px 28px;
-    }
-
-    .room-header {
-        min-height: 75px;
-    }
-
-    .brand h1 {
-        font-size: 19px;
-    }
-
-    .room-content {
-        padding-top: 22px;
-    }
-
-    .welcome-area {
-        min-height: 118px;
-        padding: 22px;
-    }
-
-    .participants {
-        gap: 17px;
-        margin-bottom: 21px;
-    }
-
-    .main-layout {
-        gap: 22px;
-    }
-
-    .cinema-console {
-        min-height: 0;
-        display: flex;
-        flex-direction: column;
-        border-radius: 13px;
-    }
-
-    .cinema-console .watch-area {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .cinema-console .video-container {
-        min-height: 0;
-        aspect-ratio: 16 / 9;
-    }
-
-    .cinema-console .player-controls {
-        min-height: 68px;
-        padding: 14px 17px;
-    }
-
-    .cinema-console .chat-area {
-        height: 420px;
-        min-height: 420px;
-        border-top: 1px solid rgba(207,224,234,.13);
-        border-left: 0;
-    }
-
-    .cinema-console .chat-header {
-        min-height: 68px;
-        padding: 14px 17px;
-    }
-
-    .cinema-console .chat-messages {
-        flex: 1 1 0;
-        height: 0;
-        min-height: 0;
-        max-height: none;
-        padding: 16px;
-    }
-
-    .cinema-console .chat-input-area {
-        padding: 12px;
-    }
-
-    .youtube-controls {
-        flex-wrap: wrap;
-        gap: 10px;
-        padding: 13px 15px;
-    }
-
-    .youtube-form {
-        flex-basis: 100%;
-    }
-
-    .episodes-section {
-        padding: 21px 18px;
-    }
-
-    .episodes-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .room-footer {
-        font-size: 8px;
-    }
-
-    .cinema-console:fullscreen {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        min-height: 0;
-        overflow-y: auto;
-    }
-
-    .cinema-console:fullscreen .watch-area {
-        flex: 0 0 auto;
-    }
-
-    .cinema-console:fullscreen .video-container {
-        flex: 0 0 auto;
-        aspect-ratio: 16 / 9;
-    }
-
-    .cinema-console:fullscreen .video-container video {
-        height: 100%;
-    }
-
-    .cinema-console:fullscreen .chat-area {
-        flex: 1 1 320px;
-        height: auto;
-        min-height: 320px;
-    }
-
-    .cinema-console:fullscreen .chat-messages {
-        min-height: 0;
-        height: 0;
-    }
-}
-
-/* ---------------------------------------------------------
-   14. RESPONSIVE — SMALL PHONES
---------------------------------------------------------- */
-
-@media (max-width: 480px) {
-    .entrance-screen {
-        padding: 40px 17px 76px;
-    }
-
-    .entrance-content {
-        padding: 49px 21px 32px;
-    }
-
-    .entrance-title {
-        font-size: 39px;
-        letter-spacing: 5px;
-    }
-
-    .entrance-subtitle {
-        font-size: 8px;
-        letter-spacing: 1.8px;
-    }
-
-    .entrance-description {
-        font-size: 11px;
-        letter-spacing: 1px;
-    }
-
-    .ticket-container {
-        width: min(100%, 270px);
-        margin: 30px auto 26px;
-    }
-
-    .entrance-screen::after {
-        max-width: calc(100% - 20px);
-        font-size: 7px;
-        letter-spacing: 1px;
-        text-align: center;
-    }
-
-    .room-screen {
-        padding: 12px 11px 22px;
-    }
-
-    .room-header {
-        gap: 8px;
-        padding-bottom: 15px;
-    }
-
-    .brand h1 {
-        font-size: 15px;
-        letter-spacing: 2px;
-    }
-
-    .brand p {
-        font-size: 7px;
-        letter-spacing: .8px;
-    }
-
-    .room-status {
-        gap: 6px;
-        padding: 7px 8px;
-        font-size: 7px;
-        letter-spacing: 0;
-    }
-
-    .status-indicator {
-        width: 6px;
-        height: 6px;
-    }
-
-    .theme-button {
-        width: 35px;
-        height: 35px;
-        font-size: 16px;
-    }
-
-    .welcome-area {
-        min-height: 108px;
-        padding: 18px 15px;
-    }
-
-    .welcome-area h2 {
-        max-width: 78%;
-        font-size: 24px;
-    }
-
-    .welcome-area p {
-        max-width: 85%;
-        font-size: 11px;
-    }
-
-    .welcome-area::after {
-        right: 2%;
-        font-size: 66px;
-    }
-
-    .participants {
-        gap: 11px;
-        justify-content: space-around;
-        padding: 12px 2px 16px;
-    }
-
-    .participant {
-        gap: 7px;
-    }
-
-    .participant-avatar {
-        width: 34px;
-        height: 34px;
-    }
-
-    .participant-info strong {
-        font-size: 10px;
-    }
-
-    .participant-info span {
-        font-size: 7px;
-    }
-
-    .connection-symbol {
-        font-size: 15px;
-    }
-
-    .cinema-console {
-        border-radius: 10px;
-    }
-
-    .cinema-console .player-controls {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 10px;
-        padding: 13px 14px;
-    }
-
-    .cinema-console .playing-info strong {
-        font-size: 12px;
-    }
-
-    .sync-status {
-        font-size: 8px;
-    }
-
-    .cinema-console .chat-area {
-        height: 390px;
-        min-height: 390px;
-    }
-
-    .cinema-console .chat-header h3 {
-        font-size: 16px;
-    }
-
-    .cinema-console .chat-live {
-        padding: 6px 7px;
-        font-size: 7px;
-    }
-
-    .cinema-console .message,
-    .cinema-console .chat-message {
-        max-width: 92%;
-        padding: 10px 12px;
-    }
-
-    .cinema-console .message-text {
-        font-size: 13px;
-    }
-
-    .cinema-console .chat-input-area {
-        gap: 7px;
-        padding: 10px;
-    }
-
-    .cinema-console .chat-input-area input {
-        height: 43px;
-        padding: 0 11px;
-        font-size: 16px;
-    }
-
-    .cinema-console .chat-input-area button {
-        width: 43px;
-        height: 43px;
-    }
-
-    .youtube-source-label {
-        font-size: 8px;
-    }
-
-    .youtube-form input {
-        height: 40px;
-        font-size: 11px;
-    }
-
-    .youtube-form button {
-        min-width: 88px;
-        padding: 0 10px;
-        font-size: 8px;
-    }
-
-    .episodes-section {
-        padding: 18px 13px;
-    }
-
-    .episodes-heading h3 {
-        font-size: 18px;
-    }
-
-    .episode-count {
-        padding: 6px 7px;
-        font-size: 7px;
-    }
-
-    .episode-card {
-        min-height: 76px;
-        padding: 10px;
-    }
-
-    .episode-card strong {
-        font-size: 23px;
-    }
-
-    .room-footer {
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-        text-align: center;
-    }
-}
-
-/* ---------------------------------------------------------
-   15. NIGHT MODE — FINISHING DETAILS
---------------------------------------------------------- */
-
-body.night-mode .welcome-area p,
-body.night-mode .section-eyebrow,
-body.night-mode .brand p {
-    color: var(--muted);
-}
-
-body.night-mode .room-status {
-    color: #d9e3e9;
-}
-
-body.night-mode .theme-button:hover {
-    color: #fff;
-}
-
-/* ---------------------------------------------------------
-   16. ACCESSIBILITY / REDUCED MOTION
---------------------------------------------------------- */
-
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
-    }
-}
-
-/* ---------------------------------------------------------
-   15. MOBILE CHAT — COMPACT CONNECTION TO THE PLAYER
-   Reduz a altura vazia entre o player, as mensagens e a escrita.
---------------------------------------------------------- */
-@media (max-width: 800px) {
-    .cinema-console .chat-area {
-        height: 310px;
-        min-height: 310px;
-        flex: 0 0 310px;
-    }
-
-    .cinema-console .chat-header {
-        min-height: 58px;
-        padding: 11px 15px;
-    }
-
-    .cinema-console .chat-messages {
-        padding: 11px 13px;
-        gap: 9px;
-    }
-
-    .cinema-console .chat-welcome {
-        padding: 8px;
-    }
-
-    .cinema-console .chat-input-area {
-        padding: 9px 11px;
-        gap: 8px;
-    }
-
-    .cinema-console .chat-input-area input,
-    .cinema-console .chat-input-area button {
-        height: 42px;
-    }
-}
-
-@media (max-width: 480px) {
-    .cinema-console .chat-area {
-        height: 285px;
-        min-height: 285px;
-        flex-basis: 285px;
-    }
-
-    .cinema-console .chat-header {
-        min-height: 54px;
-        padding: 9px 13px;
-    }
-
-    .cinema-console .chat-messages {
-        padding: 9px 11px;
-        gap: 8px;
-    }
-
-    .cinema-console .chat-input-area {
-        padding: 8px 10px;
-    }
-
-    .cinema-console .chat-input-area input,
-    .cinema-console .chat-input-area button {
-        height: 40px;
-    }
-
-    .cinema-console .chat-input-area button {
-        width: 40px;
-        flex-basis: 40px;
-    }
-}/* AJUSTE MOBILE — PLAYER E CHAT */
 @media (max-width: 600px) {
+  .intro-photo {
+    display: none;
+  }
 
-    /* Remove o espaço vertical exagerado do player */
-    .cinema-console .watch-area {
-        height: auto !important;
-        min-height: 0 !important;
-        padding-bottom: 0 !important;
-        margin-bottom: 0 !important;
-    }
+  .room-header {
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
 
-    .cinema-console .video-container {
-        width: 100% !important;
-        height: auto !important;
-        min-height: 0 !important;
-        aspect-ratio: 16 / 9 !important;
-    }
+  .participants {
+    gap: 0.8rem;
+  }
 
-    /* Aproxima o chat do player */
-    .cinema-console {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 12px !important;
-    }
+  .room-footer {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}/* Título da abertura */
+.entrance-title {
+  font-family: 'Josefin Sans', 'Montserrat', sans-serif;
+  font-size: clamp(3rem, 8vw, 4.8rem);
+  font-weight: 200;
+  letter-spacing: 0.24em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: #f4dce8;
+  -webkit-text-fill-color: #f4dce8;
+  text-shadow: 0 0 28px rgba(255, 180, 215, 0.2);
+  margin-bottom: 0.6rem;
+}
 
-    .cinema-console .chat-area {
-        height: 280px !important;
-        min-height: 280px !important;
-        margin-top: 0 !important;
-    }
+/* Marca no cabeçalho */
+.brand h1 {
+  font-family: 'Josefin Sans', 'Montserrat', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #f4dce8;
+}.enter-button {
+  position: relative;
+  background: transparent;
+  color: #ffffff;
+  border: none;
+  border-top: 1px solid rgba(255, 107, 181, 0.45);
+  border-bottom: 1px solid rgba(255, 107, 181, 0.45);
+  padding: 0.95rem 2.4rem;
+  font-family: 'Montserrat', 'Space Grotesk', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.35s ease;
+}
 
-    /* Compacta o interior do chat */
-    .cinema-console .chat-header {
-        min-height: 48px !important;
-        padding: 8px 12px !important;
-    }
+.enter-button span {
+  color: var(--pink-primary);
+  transition: transform 0.3s ease;
+}
 
-    .cinema-console .chat-messages {
-        padding: 8px 10px !important;
-    }
+.enter-button:hover {
+  letter-spacing: 5.5px;
+  background: rgba(255, 107, 181, 0.08);
+  border-color: var(--pink-soft);
+  text-shadow: 0 0 16px rgba(255, 107, 181, 0.8);
+}
 
-    .cinema-console .chat-input-area {
-        padding: 7px !important;
-    }
+.enter-button:hover span {
+  transform: translate(3px, -3px);
+}/* =========================================================
+   2. FUNDO ESPACIAL 2D ANIMADO (.space-background)
+   ========================================================= */
+.space-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 20%, #160d2c 0%, var(--bg-space) 80%);
+}
+
+/* Nebulosa ao fundo, sem apagar as estrelas */
+.pink-glow {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: 65vw;
+  height: 65vw;
+  max-width: 750px;
+  max-height: 750px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 107, 181, 0.14) 0%,
+    rgba(121, 40, 202, 0.09) 48%,
+    transparent 72%
+  );
+  filter: blur(55px);
+  animation: nebulaPulse 10s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Camadas de estrelas nítidas acima da nebulosa */
+.stars,
+.stars::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background-image:
+    radial-gradient(1.5px 1.5px at 40px 60px, #ffffff, transparent),
+    radial-gradient(1.2px 1.2px at 120px 180px, var(--pink-soft), transparent),
+    radial-gradient(2px 2px at 240px 90px, #ffffff, transparent),
+    radial-gradient(1.5px 1.5px at 310px 260px, var(--cyan-star), transparent),
+    radial-gradient(1.2px 1.2px at 80px 320px, #ffffff, transparent);
+  background-size: 360px 360px;
+  animation: spaceDrift 95s linear infinite;
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.stars::after {
+  background-size: 520px 520px;
+  animation: spaceDrift 65s linear infinite, starTwinkle 5s ease-in-out infinite alternate;
+  opacity: 0.55;
+}
+
+/* Estrela cadente equilibrada: presente, mas sem exagero */
+.space-background::before {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: -14%;
+  width: 115px;
+  height: 1.5px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 179, 217, 0.55),
+    rgba(126, 232, 250, 0.7)
+  );
+  border-radius: 999px;
+  filter: drop-shadow(0 0 5px rgba(255, 107, 181, 0.35));
+  transform: rotate(18deg);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+  animation: shootingStar 14s ease-in-out infinite 4s;
+}
+
+@keyframes spaceDrift {
+  from { transform: translateY(0) translateX(0); }
+  to { transform: translateY(-360px) translateX(-160px); }
+}
+
+@keyframes starTwinkle {
+  0% { opacity: 0.32; }
+  100% { opacity: 0.78; }
+}
+
+@keyframes nebulaPulse {
+  0% { transform: translate(-50%, -50%) scale(0.94); opacity: 0.7; }
+  100% { transform: translate(-48%, -52%) scale(1.08); opacity: 0.95; }
+}
+
+@keyframes shootingStar {
+  0%, 84% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(18deg);
+  }
+  87% {
+    opacity: 0.65;
+  }
+  95% {
+    opacity: 0;
+    transform: translate3d(110vw, 28vh, 0) rotate(18deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(110vw, 28vh, 0) rotate(18deg);
+  }
+}.chat-header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.voice-call-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 107, 181, 0.14);
+  border: 1px solid rgba(255, 107, 181, 0.45);
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.voice-call-btn:hover {
+  background: rgba(255, 107, 181, 0.28);
+  border-color: #ffb3d9;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+  .voice-call-btn {
+    padding: 0.35rem 0.55rem;
+  }
+
+  .voice-call-label {
+    display: none;
+  }
+}/* =========================================================
+   MODO NOTURNO PROFUNDO (DEEP NIGHT MODE)
+   ========================================================= */
+body.night-mode {
+  background-color: #020107;
+  color: #e6e2f5;
+}
+
+/* Fundo ainda mais escuro e calmo para assistir no escuro */
+body.night-mode .space-background {
+  background: radial-gradient(circle at 50% 15%, #090514 0%, #020107 85%);
+}
+
+/* Nebulosa fica mais contida e profunda para não cansar a vista */
+body.night-mode .pink-glow {
+  background: radial-gradient(
+    circle,
+    rgba(121, 40, 202, 0.14) 0%,
+    rgba(255, 107, 181, 0.05) 50%,
+    transparent 75%
+  );
+  filter: blur(65px);
+}
+
+/* Estrelas mais suaves para não competir com o vídeo */
+body.night-mode .stars {
+  opacity: 0.45;
+}
+
+body.night-mode .stars::after {
+  opacity: 0.25;
+}
+
+/* Vidro mais escuro e bordas discretas */
+body.night-mode .room-header,
+body.night-mode .cinema-console,
+body.night-mode .watch-area,
+body.night-mode .chat-area,
+body.night-mode .episode-card,
+body.night-mode .participant {
+  background: rgba(5, 4, 12, 0.88);
+  border-color: rgba(168, 130, 255, 0.16);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9);
+}
+
+/* Área de mensagens do chat mais escura e confortável de ler */
+body.night-mode .chat-messages {
+  background: rgba(3, 2, 8, 0.75);
+}
+
+/* Inputs e botões ganham visual noturno */
+body.night-mode input {
+  background: rgba(8, 6, 18, 0.92);
+  border-color: rgba(168, 130, 255, 0.22);
+  color: #f3f0ff;
+}
+
+body.night-mode .theme-button {
+  background: rgba(168, 130, 255, 0.18);
+  border-color: rgba(168, 130, 255, 0.55);
+  color: #ffd6eb;
+  transform: rotate(25deg);
+}
+
+/* Transição suave para a mudança ser perceptível e agradável */
+body,
+.space-background,
+.pink-glow,
+.room-header,
+.cinema-console,
+.watch-area,
+.chat-area,
+.chat-messages,
+.episode-card,
+.participant,
+.theme-button {
+  transition:
+    background-color 0.45s ease,
+    background 0.45s ease,
+    border-color 0.45s ease,
+    box-shadow 0.45s ease,
+    opacity 0.45s ease,
+    transform 0.35s ease;
 }
